@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+    	<record model="ir.module.category" id="transport_app">
+            <field name="name">Transports</field>
+            <field name="description">Gestion des transports</field>
+            <field name="sequence">1</field>
+        </record>
 
         <record id="group_transport_user" model="res.groups">
-            <field name="name">Gestion de parc automobile</field>
+            <field name="name">Utilisateur</field>
+            <field name="category_id" ref="transport_management.transport_app"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Le menu gestion de parc automobile caché</field>
+        </record>
+
+        <record id="group_transport_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="transport_management.transport_app"/>
+            <field name="implied_ids" eval="[(4, ref('group_transport_user'))]"/>
+            <field name="comment">Accès au menu transports</field>
         </record>
 
     </data>
