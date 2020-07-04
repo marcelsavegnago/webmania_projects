@@ -11,7 +11,7 @@
     # 'depends': ['base', 'sale','stock','report_xlsx'],
     'depends': ['base'],
     'data': [
-        "security/groups.xml",
+        "security/security.xml",
         'security/ir.model.access.csv',
         'views/transport_vehicle_view.xml',
         'views/transport_vehicle_status_view.xml',
