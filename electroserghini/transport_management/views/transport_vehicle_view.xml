@@ -79,7 +79,13 @@
 
          <menuitem name="Gestion des transports" id="transport_management" web_icon="transport_management,static/description/icon.png"  sequence="1"/>
 
-        <menuitem id="main_transportation_vehicle_creation_menu" name="Gestion de parc Auto"  parent="transport_management" action="vehicle_template_action" sequence="2"/>
+        <menuitem 
+            id="main_transportation_vehicle_creation_menu" 
+            groups="group_transport_manager"
+            name="Gestion de parc Auto"  
+            parent="transport_management" 
+            action="vehicle_template_action" 
+            sequence="2"/>
         
     </data>
 </odoo>
