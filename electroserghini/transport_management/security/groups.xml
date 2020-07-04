@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="group_transport_user" model="res.groups">
+            <field name="name">Gestion de parc automobile</field>
+        </record>
+
+    </data>
+</openerp>

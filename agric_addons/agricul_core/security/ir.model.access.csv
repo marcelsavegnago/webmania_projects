@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+manager_amh_culture_irriguer,amh culture irriguer manager,model_amh_culture_irriguer,,1,1,1,1
+manager_amh_puits,amh puits manager,model_amh_puits,,1,1,1,1
+manager_amh_puits_type,amh puits type manager,model_amh_puits_type,,1,1,1,1
+manager_amh_precalcul_name,amh precalcul.name manager,model_amh_precalcul_name,,1,1,1,1
+manager_amh_precalcul_down2,amh precalcul.down2 manager,model_amh_precalcul_down2,,1,1,1,1
+manager_amh_culture,amh culture manager,model_amh_culture,,1,1,1,1
+manager_amh_region,amh region manager,model_amh_region,,1,1,1,1
+manager_amh_region_line,amh region line manager,model_amh_region_line,,1,1,1,1
+manager_amh_region_line,amh region line manager,model_amh_region_line,,1,1,1,1
+manager_amh_culture_line,amh culture line manager,model_amh_culture_line,,1,1,1,1
+manager_amh_synthese,amh synthese manager,model_amh_synthese,,1,1,1,1
+manager_amh_puits_type,amh puits type manager,model_amh_puits_type,,1,1,1,1
+manager_amh_caracts_perm,amh caracts perm manager,model_amh_caracts_perm,,1,1,1,1

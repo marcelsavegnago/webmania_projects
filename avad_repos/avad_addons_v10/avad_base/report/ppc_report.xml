@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_ppc_template">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+                <div class="header">
+                    <img src='avad_base/static/imgs/head_ppc.PNG' style="width:1005px;height:300px;"/>
+                </div>
+
+                <div class="page">
+                    <style>
+                        .text-xsp{
+                        font-size:1.7em;
+                        }
+                        .text-xp{
+                        padding:3px;
+                        background-color:lightblue;
+                        text-weight:bold;
+                        margin-bottom:5px;
+                        margin-top:15px;
+                        }
+                        .libele{
+                        color:#007399;
+                        font-size:1.5em;
+                        }
+                        .row div, .tt45{
+                         font-size:1.5em;
+                        }
+                    </style>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <div style="font-weight:bold;">
+                        <div class="text-xp"><center><span class="text-xsp"><u>Information patient</u></span></center></div>
+                        <div class="row">
+                            <div class="col-xs-3 libele">Nom: </div><div class="col-xs-3">&#160;<t t-esc="o.project_id.patient_id.name"/></div>
+                            <div class="col-xs-3 libele">Date de naissance: </div><div class="col-xs-3">&#160;<span t-field="o.ddn" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></div>
+
+                            <div class="col-xs-3  libele">Taille: </div><div class="col-xs-3">&#160;<t t-esc="'%.2f'%o.taille"/></div>
+                            <div class="col-xs-3 libele">Poids: </div><div class="col-xs-3">&#160;<t t-esc="'%.2f'%o.poids"/></div>
+                            <div class="col-xs-3  libele">IMC: </div><div class="col-xs-9">&#160;<t t-esc="'%.2f'%o.imc"/></div>
+                        </div>
+
+                        <div class="text-xp"><center><span class="text-xsp"><u>Matériel</u></span></center></div>
+                        <div class="row">
+                            <div class="col-xs-3 libele">Type d'appareil: </div><div class="col-xs-3">&#160;<span t-field="o.type_appareil"/></div>
+                            <div class="col-xs-3 libele">Numéro de série: </div><div class="col-xs-3">&#160;<t t-esc="o.num_serie"/></div>
+
+                            <div class="col-xs-3 libele">Type de masque:</div><div class="col-xs-3">&#160;<span t-field="o.type_masque"/></div>
+                            <div class="col-xs-3 libele">Marque de masque:</div><div class="col-xs-3">&#160;<span t-field="o.marque_masque"/></div>
+                        </div>
+
+                        <div class="text-xp"><center><span class="text-xsp"><u>Observance</u></span></center></div>
+                        <div class="row">
+                            <div class="col-xs-4 libele">Date du: </div><div class="col-xs-2">&#160;<span t-field="o.date_db" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></div>
+                            <div class="col-xs-3 libele">Au: </div><div class="col-xs-3">&#160;<span t-field="o.date_fn"  t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></div>
+
+                            <div class="col-xs-4 libele">Durée d'utilisation/J:</div><div class="col-xs-2">&#160;<t t-esc="o.dur_utlis"/></div>
+                            <div class="col-xs-3 libele">Durée du sommeil:</div><div class="col-xs-3">&#160;<t t-esc="o.dur_someil"/></div>
+
+                            <div class="col-xs-4 libele">Tolérance:</div><div class="col-xs-2">&#160;<span t-field="o.tolerance"/></div>
+                            <t t-if="o.tolerance == '1'">
+                                <div class="col-xs-3 libele">Motif:</div><div class="col-xs-3">&#160;<t t-esc="o.motif_tolerance"/></div>
+                            </t>
+                            <t t-if="o.tolerance != '1'">
+                                <div class="col-xs-3 libele">&#160;</div><div class="col-xs-3">&#160;</div>
+                            </t>
+
+                        </div>
+
+                        <div class="text-xp"><center><span class="text-xsp"><u>Fuites</u></span></center></div>
+                        <div class="row">
+                            <div class="col-xs-2 libele">Fuite :</div><div class="col-xs-4">&#160;<span t-field="o.fuite"/></div>
+                            <t t-if="o.fuite == '1'">
+                                <div class="col-xs-3 libele">Taux de fuite (Lpm):</div><div class="col-xs-3">&#160;<t t-esc="'%.2f'%o.taux_fuite"/></div>
+                            </t>
+                            <t t-if="o.fuite != '1'">
+                                <div class="col-xs-3 libele">&#160;</div><div class="col-xs-3">&#160;</div>
+                            </t>
+
+                            <div class="col-xs-2 libele">Origine :</div><div class="col-xs-4">&#160;<span t-field="o.fuite_origine"/></div>
+                            <div class="col-xs-3">&#160;</div><div class="col-xs-3">&#160;</div>
+                        </div>
+
+                        <div class="text-xp"><center><span class="text-xsp"><u>Pressions</u></span></center></div>
+                        <div class="row">
+                            <div class="col-xs-3 libele">Pression préscrite : </div><div class="col-xs-3">&#160;<t t-esc="'%.2f'%o.pres_p"/></div>
+                            <div class="col-xs-4 libele">Pression Moy (95%):</div><div class="col-xs-2">&#160;<t t-esc="'%.2f'%o.pres_moy"/></div>
+
+                            <div class="col-xs-3 libele">Rampe (min):</div><div class="col-xs-3">&#160;<t t-esc="o.rampe"/></div>
+                            <div class="col-xs-3 libele">&#160;</div><div class="col-xs-3">&#160;</div>
+
+                        </div>
+
+                        <div class="text-xp"><center><span class="text-xsp"><u>IAH</u></span></center></div>
+                        <div>
+                            <p><span class="libele">IAH résidual :</span>&#160;<span class="tt45" t-esc="'%.2f'%o.iah_resid"/></p>
+                            <p><span class="libele">Prochain Rendez-vous :</span> &#160;<span class="tt45" t-if="o.date_pr_visit" t-field="o.date_pr_visit" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></p>
+                            <p><span class="libele">Conclusion :</span> &#160;<span class="tt45" t-esc="o.conclusion"/></p>
+                        </div>
+                        <div class="text-xp"><center><span class="text-xsp">&#160;</span></center></div>
+
+                    </div>
+                    <div style="position:absolute;top:1360px; page-break-inside: avoid;">
+                        <img src='avad_base/static/imgs/footerG.png' style="width:1070px;height:140px;"/>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+        <report
+                string="Rapport PPC"
+                id="action_rapport_ppc"
+                model="project.task"
+                report_type="qweb-pdf"
+                name="avad_base.report_ppc_template"
+                file="avad_base.report_ppc_template"
+                menu="False"
+                paperformat="avad_base.paperformat_report_ppc"
+        />
+        <!--
+         -->
+    </data>
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_template_form_view_amh" model="ir.ui.view">
+            <field name="name">product_template_form_view_amh</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="type_article" invisible="1"/>
+                    <field name="validate_date"
+                           attrs="{'required': ['|',('type_article','not in', [False,'goutteurs']),'&amp;',('type_article','=','goutteurs'),('goutteur_sans_essai','=',False)]}"/>
+                </xpath>
+
+                <xpath expr="//notebook/page[1]" position="inside">
+                    <group col="1" string="Attributs Spécifiques" attrs="{'invisible': [('type_article','not in', ['goutteurs','gaines'])]}">
+                        <group attrs="{'invisible': [('type_article','!=', 'goutteurs')]}">
+                                <field name="goutteur_sans_essai" invisible="1"/>
+                                <field name="goutteur_type" attrs="{'required': [('type_article','=', 'goutteurs')]}"/>
+                        </group>
+                        <group attrs="{'invisible': [('type_article','=', 'goutteurs'),('goutteur_sans_essai','=',True)]}">
+                                <field name="q_moyen"
+                                       attrs="{'required': ['|',('type_article','=', 'gaines'),'&amp;',('type_article','=', 'goutteurs'),('goutteur_sans_essai','=',False)]}"/>
+                                <field name="exposant" digits="(14, 3)"
+                                       attrs="{'required': ['|',('type_article','=', 'gaines'),'&amp;',('type_article','=', 'goutteurs'),('goutteur_sans_essai','=',False)]}"/>
+                        </group>
+                        <group attrs="{'invisible': [('type_article','not in', ['goutteurs','gaines'])]}">
+                                <field name="k_value" attrs="{'required': [('type_article','=', 'goutteurs'),('goutteur_sans_essai','=',False)]}"/>
+                                <field name="pression_service"/>
+                                <field name="longeur_qte"/>
+                        </group>
+                        <group>
+                            <field name="excrt_gtr"/>
+                        </group>
+
+                    </group>
+                    <group string="Attributs Spécifiques" attrs="{'invisible': [('type_article','not in', ['pvc','pehd','pebd'])]}">
+                        <group>
+                            <field name="mesure"/>
+                            <field name="diametre_ext"/>
+                            <field name="diametre_int"/>
+                            <field name="diametre_int2"/>
+                            <field name="pression" />
+                        </group>
+                        <group>
+                            <field name="type_jn_cl"/>
+                            <field name="debit_max"/>
+                            <field name="vitesse_max"/>
+                        </group>
+                    </group>
+                    <group string="Attributs Spécifiques" attrs="{'invisible': [('type_article','!=', 'woltman')]}">
+                        <group>
+                            <field name="dn_mm"/>
+                        </group>
+                        <group>
+                            <field name="debits_wm"/>
+                        </group>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+<!--
+        <record id="goutteur_type_form_view_amh" model="ir.ui.view">
+            <field name="name">product_goutteur_type_form_view_amh</field>
+            <field name="model">goutteur.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="designation"/>
+                            <field name="dims"/>
+                        </group>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+        <record id="goutteur_type_tree_view_amh" model="ir.ui.view">
+            <field name="name">product_goutteur_type_tree_view_amh</field>
+            <field name="model">goutteur.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="goutteur_type_action">
+            <field name="name">Ajouter un type de goutteur</field>
+            <field name="res_model">goutteur.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Ajouter des types de goutteur.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="type_gtr_menu_sale" name="Types de goutteur" action="goutteur_type_action"
+                  parent="sale.prod_config_main"/>
+        <menuitem id="type_gtr_menu_purchase" name="Types de goutteur" action="goutteur_type_action"
+                  parent="purchase.menu_product_in_config_purchase"/>
+-->
+    </data>
+</odoo>

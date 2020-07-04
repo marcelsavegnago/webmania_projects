@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+    <record model="ir.ui.view" id="view_webm_partner_form">
+      <field name="name">partner.form.webm</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[1]/group[1]" position="before">
+                <group>
+                    <field name="ice" />
+                </group>
+                <group>
+                    <field name="vat"/>
+                </group>
+            </xpath>
+      </field>
+    </record>
+    </data>
+</odoo>

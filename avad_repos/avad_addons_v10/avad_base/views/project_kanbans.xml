@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--<record model="ir.ui.view" id="view_project_kanban_location">-->
+            <!--<field name="name">project.project.kanban.location</field>-->
+            <!--<field name="model">project.project</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<kanban class="oe_background_grey o_kanban_dashboard o_project_kanban">-->
+                    <!--<field name="location_state"/>-->
+                    <!--<field name="avad_state"/>-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="use_tasks"/>-->
+                    <!--<field name="color"/>-->
+                    <!--<field name="task_count"/>-->
+                    <!--<field name="task_needaction_count"/>-->
+                    <!--<field name="label_tasks"/>-->
+                    <!--<field name="alias_id"/>-->
+                    <!--<field name="alias_name"/>-->
+                    <!--<field name="alias_domain"/>-->
+                    <!--<field name="doc_count"/>-->
+                    <!--<field name="is_favorite"/>-->
+                    <!--<templates>-->
+                        <!--<t t-name="kanban-box">-->
+                            <!--<div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">-->
+                                <!--<div class="o_project_kanban_main">-->
+                                    <!--<div class="o_kanban_card_content o_visible">-->
+                                        <!--<div class="o_kanban_primary_left">-->
+                                            <!--<div class="o_primary">-->
+                                                <!--<span>-->
+                                                    <!--<t t-esc="record.name.value"/>-->
+                                                <!--</span>-->
+                                            <!--</div>-->
+                                            <!--<div t-if="record.alias_name.value and record.alias_domain.value">-->
+                                                <!--<span>-->
+                                                    <!--<i class="fa fa-envelope"></i>-->
+                                                    <!--<t t-esc="record.alias_id.value"/>-->
+                                                <!--</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="o_kanban_card_manage_pane o_invisible">-->
+                                        <!--<div class="o_kanban_card_manage_section o_kanban_manage_reports">-->
+                                            <!--<div groups="project.group_project_manager">-->
+                                                <!--<a type="edit">Settings</a>-->
+                                            <!--</div>-->
+                                            <!--<div attrs="{'invisible': [('use_tasks', '=', False)]}">-->
+                                                <!--<a name="%(project.action_project_task_user_tree_filtered)d"-->
+                                                   <!--type="action">Tasks-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div t-if="widget.editable" class="o_project_kanban_colorpicker">-->
+                                            <!--<ul class="oe_kanban_colorpicker" data-field="color"/>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="o_project_kanban_manage">-->
+                                        <!--<a class="o_kanban_manage_toggle_button o_left" href="#">More-->
+                                            <!--<i class="fa fa-caret-down"/>-->
+                                        <!--</a>-->
+                                        <!--<a type="object" name="toggle_favorite" class="o_right">-->
+                                            <!--<i t-attf-class="oe_inline fa o_dashboard_star #{record.is_favorite.raw_value ? 'fa-star' : 'fa-star-o'}"-->
+                                               <!--title="Add/remove from favorite"/>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="o_project_kanban_boxes">-->
+                                    <!--<div t-if="record.use_tasks.raw_value" class="o_project_kanban_box">-->
+                                        <!--<a name="%(project.act_project_project_2_project_task_all)d" type="action">-->
+                                            <!--<span class="o_value">-->
+                                                <!--<t t-esc="record.task_count.value"/>-->
+                                            <!--</span>-->
+                                            <!--<span class="o_label">-->
+                                                <!--<t t-esc="record.label_tasks.value"/>-->
+                                            <!--</span>-->
+                                        <!--</a>-->
+                                        <!--<a t-if="record.task_needaction_count.raw_value" class="o_needaction"-->
+                                           <!--name="%(project.act_project_project_2_project_task_all)d" type="action"-->
+                                           <!--context="{'search_default_message_needaction': 1}">-->
+                                            <!--<t t-esc="record.task_needaction_count.raw_value"/>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                    <!--<div t-if="record.doc_count.raw_value" class="o_project_kanban_box">-->
+                                        <!--<a name="attachment_tree_view" type="object">-->
+                                            <!--<span class="o_value">-->
+                                                <!--<t t-esc="record.doc_count.value"/>-->
+                                            <!--</span>-->
+                                            <!--<span class="o_label">Documents</span>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</t>-->
+                    <!--</templates>-->
+                <!--</kanban>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="view_project_kanban_location_grpby" model="ir.ui.view">-->
+            <!--<field name="name">project.project.kanban.view.groub.location</field>-->
+            <!--<field name="model">project.project</field>-->
+            <!--<field name="inherit_id" ref="avad_base.view_project_kanban_location"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//kanban" position="attributes">-->
+                    <!--<attribute name="default_group_by">location_state</attribute>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.ui.view" id="view_project_kanban_ventes">-->
+            <!--<field name="name">project.project.kanban.ventes</field>-->
+            <!--<field name="model">project.project</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<kanban class="oe_background_grey o_kanban_dashboard o_project_kanban">-->
+                    <!--<field name="location_state"/>-->
+                    <!--<field name="avad_state"/>-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="use_tasks"/>-->
+                    <!--<field name="color"/>-->
+                    <!--<field name="task_count"/>-->
+                    <!--<field name="task_needaction_count"/>-->
+                    <!--<field name="label_tasks"/>-->
+                    <!--<field name="alias_id"/>-->
+                    <!--<field name="alias_name"/>-->
+                    <!--<field name="alias_domain"/>-->
+                    <!--<field name="doc_count"/>-->
+                    <!--<field name="is_favorite"/>-->
+                    <!--<templates>-->
+                        <!--<t t-name="kanban-box">-->
+                            <!--<div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">-->
+                                <!--<div class="o_project_kanban_main">-->
+                                    <!--<div class="o_kanban_card_content o_visible">-->
+                                        <!--<div class="o_kanban_primary_left">-->
+                                            <!--<div class="o_primary">-->
+                                                <!--<span>-->
+                                                    <!--<t t-esc="record.name.value"/>-->
+                                                <!--</span>-->
+                                            <!--</div>-->
+                                            <!--<div t-if="record.alias_name.value and record.alias_domain.value">-->
+                                                <!--<span>-->
+                                                    <!--<i class="fa fa-envelope"></i>-->
+                                                    <!--<t t-esc="record.alias_id.value"/>-->
+                                                <!--</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="o_kanban_card_manage_pane o_invisible">-->
+                                        <!--<div class="o_kanban_card_manage_section o_kanban_manage_reports">-->
+                                            <!--<div groups="project.group_project_manager">-->
+                                                <!--<a type="edit">Settings</a>-->
+                                            <!--</div>-->
+                                            <!--<div attrs="{'invisible': [('use_tasks', '=', False)]}">-->
+                                                <!--<a name="%(project.action_project_task_user_tree_filtered)d"-->
+                                                   <!--type="action">Tasks-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div t-if="widget.editable" class="o_project_kanban_colorpicker">-->
+                                            <!--<ul class="oe_kanban_colorpicker" data-field="color"/>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="o_project_kanban_manage">-->
+                                        <!--<a class="o_kanban_manage_toggle_button o_left" href="#">More-->
+                                            <!--<i class="fa fa-caret-down"/>-->
+                                        <!--</a>-->
+                                        <!--<a type="object" name="toggle_favorite" class="o_right">-->
+                                            <!--<i t-attf-class="oe_inline fa o_dashboard_star #{record.is_favorite.raw_value ? 'fa-star' : 'fa-star-o'}"-->
+                                               <!--title="Add/remove from favorite"/>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="o_project_kanban_boxes">-->
+                                    <!--<div t-if="record.use_tasks.raw_value" class="o_project_kanban_box">-->
+                                        <!--<a name="%(project.act_project_project_2_project_task_all)d" type="action">-->
+                                            <!--<span class="o_value">-->
+                                                <!--<t t-esc="record.task_count.value"/>-->
+                                            <!--</span>-->
+                                            <!--<span class="o_label">-->
+                                                <!--<t t-esc="record.label_tasks.value"/>-->
+                                            <!--</span>-->
+                                        <!--</a>-->
+                                        <!--<a t-if="record.task_needaction_count.raw_value" class="o_needaction"-->
+                                           <!--name="%(project.act_project_project_2_project_task_all)d" type="action"-->
+                                           <!--context="{'search_default_message_needaction': 1}">-->
+                                            <!--<t t-esc="record.task_needaction_count.raw_value"/>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                    <!--<div t-if="record.doc_count.raw_value" class="o_project_kanban_box">-->
+                                        <!--<a name="attachment_tree_view" type="object">-->
+                                            <!--<span class="o_value">-->
+                                                <!--<t t-esc="record.doc_count.value"/>-->
+                                            <!--</span>-->
+                                            <!--<span class="o_label">Documents</span>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</t>-->
+                    <!--</templates>-->
+                <!--</kanban>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="view_project_kanban_ventes_grpby" model="ir.ui.view">-->
+            <!--<field name="name">project.project.kanban.view.groub.ventes</field>-->
+            <!--<field name="model">project.project</field>-->
+            <!--<field name="inherit_id" ref="avad_base.view_project_kanban_ventes"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//kanban" position="attributes">-->
+                    <!--<attribute name="default_group_by">avad_state</attribute>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+    </data>
+</odoo>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_vni_template">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+                <div class="header">
+                    <img src='avad_base/static/imgs/head_vni.PNG' style="width:1005px;height:300px;"/>
+                </div>
+
+                <div class="page">
+                    <style>
+                        .text-xsp{
+                        font-size:1.7em;
+                        }
+                        .text-xsp2{
+                        font-size:1.1em;
+                        }
+                        .text-xp{
+                        padding:3px;
+                        background-color:lightblue;
+                        text-weight:bold;
+                        margin-bottom:5px;
+                        margin-top:15px;
+                        }
+                        .libele{
+                        color:#007399;
+                        font-size:1.5em;
+                        }
+                        .row div, .tt45{
+                         font-size:1.5em;
+                        }
+                    </style>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <div style="font-weight:bold;">
+                        <div class="row">
+                            <div class="col-xs-3 libele">Date de visite: </div><div class="col-xs-3">&#160;<span t-field="o.date_visite" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></div>
+                            <div class="col-xs-3 libele">Lieu: </div><div class="col-xs-3">&#160;<span t-field="o.lieu"/></div>
+
+                            <div class="col-xs-3  libele">Type de visite: </div><div class="col-xs-9">&#160;<span t-field="o.type_vst"/></div>
+                        </div>
+                        <div class="text-xp"><center><span class="text-xsp"><u>Information patient</u></span></center></div>
+                        <div class="row">
+                            <div class="col-xs-3 libele">Nom: </div><div class="col-xs-3">&#160;<t t-esc="o.project_id.patient_id.name"/></div>
+                            <div class="col-xs-3 libele">Date d'installation: </div><div class="col-xs-3">&#160;<span t-field="o.date_intal_vni" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></div>
+
+                            <div class="col-xs-4  libele">Numéro du téléphone: </div><div class="col-xs-2">&#160;<t t-esc="o.project_id.patient_id.mobile"/></div>
+                            <div class="col-xs-4 libele">Médecin prescripteur: </div><div class="col-xs-2">&#160;<t t-esc="o.project_id.medecin_prescripteur_id.name"/></div>
+                        </div>
+
+                        <div class="text-xp"><center><span class="text-xsp"><u>Observance Patient</u></span></center></div>
+                        <div class="row">
+                            <div class="col-xs-4 libele">Date du: </div><div class="col-xs-2">&#160;<span t-field="o.date_db" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></div>
+                            <div class="col-xs-3 libele">Au: </div><div class="col-xs-3">&#160;<span t-field="o.date_fn"  t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></div>
+
+                            <div class="col-xs-5 libele">Moyenne d'Utilisation (h/jour):</div><div class="col-xs-1">&#160;<t t-esc="o.moy_utlis_vni"/></div>
+                            <div class="col-xs-5 libele">Volume moyen (mL):</div><div class="col-xs-1">&#160;<t t-esc="o.vlm_moy_vni"/></div>
+                            <div class="col-xs-5 libele">IAH Résiduel:</div><div class="col-xs-1">&#160;<t t-esc="o.iah_resid_vni"/></div>
+                            <div class="col-xs-5 libele">Fréquence moyenne (c./min):</div><div class="col-xs-1">&#160;<t t-esc="o.freq_moy_vni"/></div>
+
+                            <div class="col-xs-5 libele">Nombre d'heures:</div><div class="col-xs-7">&#160;<span t-field="o.nb_hrs_vni"/></div>
+                        </div>
+
+                        <div class="text-xp row">
+                            <div class="col-xs-6"><center><span class="text-xsp2"><u>Matériel</u></span></center></div>
+                            <div class="col-xs-6"><center><span class="text-xsp2"><u>Masque</u></span></center></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2  libele">Modèle: </div><div class="col-xs-4">&#160;<span t-field="o.modele_mat_vni"/></div>
+                            <div class="col-xs-2  libele">Interface: </div><div class="col-xs-4">&#160;<span t-field="o.interface_mas_vni"/></div>
+
+                            <div class="col-xs-2  libele">Marque: </div><div class="col-xs-4">&#160;<span t-field="o.marque_mat_vni"/></div>
+                            <div class="col-xs-2  libele">Modèle: </div><div class="col-xs-4">&#160;<span t-field="o.modele_mas_vni"/></div>
+
+                            <div class="col-xs-4  libele">Humidification: </div><div class="col-xs-2">&#160;<span t-field="o.humd_mat_vni"/></div>
+                            <div class="col-xs-2  libele">Marque: </div><div class="col-xs-4">&#160;<span t-field="o.marque_mas_vni"/></div>
+
+                            <div class="col-xs-4  libele">Oxygénothérapie associée: </div><div class="col-xs-2">&#160;<span t-field="o.oxy_mat_vni"/></div>
+                            <div class="col-xs-3  libele">Taille du masque: </div><div class="col-xs-3">&#160;<span t-field="o.tmasq_mas_vni"/></div>
+
+                        </div>
+
+                        <div class="text-xp row">
+                            <div class="col-xs-6"><center><span class="text-xsp2"><u>Réglage</u></span></center></div>
+                            <div class="col-xs-6"><center><span class="text-xsp2"><u>Mode</u></span></center></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4  libele">IPAP (cmH2O): </div><div class="col-xs-2">&#160;<span t-field="o.ipap_reg_vni"/></div>
+                            <div class="col-xs-4  libele">Timax (sec.): </div><div class="col-xs-2">&#160;<span t-field="o.timax_mode_vni"/></div>
+
+                            <div class="col-xs-4  libele">EPAP (cmH2O): </div><div class="col-xs-2">&#160;<span t-field="o.epap_reg_vni"/></div>
+                            <div class="col-xs-4  libele">Timin (sec.): </div><div class="col-xs-2">&#160;<span t-field="o.timin_mode_vni"/></div>
+
+                            <div class="col-xs-4  libele">Fréquence (c./min): </div><div class="col-xs-2">&#160;<span t-field="o.freq_reg_vni"/></div>
+                            <div class="col-xs-4  libele">Pente (ms): </div><div class="col-xs-2">&#160;<span t-field="o.pente_mode_vni"/></div>
+
+                        </div>
+
+
+                        <div class="text-xp"><center><span class="text-xsp"><u>&#160;</u></span></center></div>
+                        <div>
+                            <p><span class="libele">Date prochaine visite:</span> &#160;<span class="tt45" t-if="o.date_pr_visit" t-field="o.date_pr_visit" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></p>
+                            <p><span class="libele">Conclusion :</span> &#160;<span class="tt45" t-esc="o.conclusion"/></p>
+                        </div>
+                        <div class="text-xp"><center><span class="text-xsp">&#160;</span></center></div>
+
+                    </div>
+                    <div style="position:absolute;top:1360px; page-break-inside: avoid;">
+                        <img src='avad_base/static/imgs/footerG.png' style="width:1070px;height:140px;"/>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+        <report
+                string="Rapport VNI"
+                id="action_rapport_vni"
+                model="project.task"
+                report_type="qweb-pdf"
+                name="avad_base.report_vni_template"
+                file="avad_base.report_vni_template"
+                menu="False"
+                paperformat="avad_base.paperformat_report_ppc"
+        />
+        <!--
+         -->
+    </data>
+</odoo>

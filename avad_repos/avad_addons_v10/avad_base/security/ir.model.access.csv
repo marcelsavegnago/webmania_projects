@@ -1,0 +1,23 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+manager_avad_medcin_specialite,amh avad.medcin.specialite manager,model_avad_medcin_specialite,group_avad_user,1,1,1,1
+manager_avad_product_forfait,amh avad.product_forfait manager,model_product_forfait,group_avad_user,1,1,1,1
+manager_avad_objet_suivi,amh avad.objet_suivi manager,model_objet_suivi,group_avad_user,1,1,1,1
+
+manager_avad_pat_type_examen,amh pat_type_examen manager,model_pat_type_examen,group_avad_user,1,1,1,1
+manager_sommeil_piece_jointe,amh sommeil_piece_jointe manager,model_sommeil_piece_jointe,group_avad_user,1,1,1,1
+manager_sommeil_forme_rapport,amh sommeil_forme_rapport manager,model_sommeil_forme_rapport,group_avad_user,1,1,1,1
+
+
+manager_sommeil_planning2,amh sommeil_planning2 manager,model_sommeil_planning2,group_avad_user,1,1,1,1
+manager_sommeil_rdv,amh sommeil_rdv manager,model_sommeil_rdv,group_avad_user,1,1,1,1
+manager_pat_canal,amh pat_canal manager,model_pat_canal,group_avad_user,1,1,1,1
+manager_pat_sommeil,amh pat_sommeil manager,model_pat_sommeil,group_avad_user,1,1,1,1
+manager_sommeil_reclamation,amh sommeil_reclamation manager,model_sommeil_reclamation,group_avad_user,1,1,1,1
+
+
+user_amh_relance_invoice,amh amh_relance_invoice user,model_amh_relance_invoice,group_avad_user,1,0,0,0
+manager_amh_relance_invoice,amh amh_relance_invoice manager,model_amh_relance_invoice,group_avad_manager,1,1,0,0
+
+user_motif_desapar,amh motif_desapar user,model_motif_desapar,group_avad_user,1,0,0,0
+manager_motif_desapar,amh motif_desapar manager,model_motif_desapar,group_avad_manager,1,1,1,1
+

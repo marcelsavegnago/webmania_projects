@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="puit_default_type" model="amh.puits.type">
+            <field name="name">PUITS</field>
+        </record>
+        <record id="amh_puits_type1" model="amh.puits.type">
+            <field name="name">FORAGE</field>
+        </record>
+        <record id="amh_puits_type2" model="amh.puits.type">
+            <field name="name">CANAL</field>
+        </record>
+        <record id="amh_puits_type3" model="amh.puits.type">
+            <field name="name">OUED</field>
+        </record>
+        <record id="amh_puits_type4" model="amh.puits.type">
+            <field name="name">RIVIERE</field>
+        </record>
+        <record id="amh_puits_type5" model="amh.puits.type">
+            <field name="name">SEGUIA</field>
+        </record>
+        <record id="amh_puits_type6" model="amh.puits.type">
+            <field name="name">BORNE D’IRRIGATION</field>
+        </record>
+
+
+        <record id="amh_caracts_perm1" model="amh.caracts.perm">
+            <field name="name">ELEVEE</field>
+        </record>
+        <record id="amh_caracts_perm2" model="amh.caracts.perm">
+            <field name="name">MOYENNE</field>
+        </record>
+        <record id="amh_caracts_perm3" model="amh.caracts.perm">
+            <field name="name">FAIBLE</field>
+        </record>
+
+
+        <record id="seq_project_agric" model="ir.sequence">
+            <field name="name">Projet agriculture sequence</field>
+            <field name="code">project.project.agricul</field>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+</openerp>

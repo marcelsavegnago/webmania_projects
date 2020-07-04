@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+{
+    'name': "Transport Management",
+    'version': '10.0.1.0.0',
+    'summary': """Transport Management With Ease""",
+    'description': """This Module Manage Transport""",
+    'author': "Webmania Solutions",
+    'company': 'Webmania Solutions',
+    'website': "https://www.webmnia.ma",
+    'category': 'Warehouse',
+    # 'depends': ['base', 'sale','stock','report_xlsx'],
+    'depends': ['base'],
+    'data': [
+        "security/groups.xml",
+        'security/ir.model.access.csv',
+        'views/transport_vehicle_view.xml',
+        'views/transport_vehicle_status_view.xml',
+        #'views/transportation_sale_order_view.xml',
+        #'views/transport_warehouse_view.xml',
+        #'views/transport_wizard_view.xml',
+        #'views/transport_report.xml',
+    ],
+    'images': ['static/description/banner.jpg'],
+    'license': 'LGPL-3',
+    'installable': True,
+    'auto_install': False,
+    'application': False,
+}

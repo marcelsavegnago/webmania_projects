@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_res_company_wb_base_inherit_form" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field  name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="company_registry" position="after">
+                        <field  name="ice"/>
+                        <field  name="identifiant_tp"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

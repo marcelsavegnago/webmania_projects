@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_cancel_sommeil_wizard" model="ir.ui.view">
+            <field name="name">wizard.cancel.sommeil.wizard.form</field>
+            <field name="model">wizard.cancel.sommeil</field>
+            <field name="arch" type="xml">
+                <form string="Reward Employee with">
+
+                    <group>
+                        <field name="sommeil_id" invisible="1"/>
+                        <field name="motif"/>
+                    </group>
+                    <footer>
+                        <button string="Valider" type="object" name="action_do" class="btn-primary"/>
+                        <button string="Annuler" special="cancel" class="btn-default"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="cancel_sommeil_action" model="ir.actions.act_window">
+            <field name="name">Annulation</field>
+            <field name="res_model">wizard.cancel.sommeil</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_cancel_sommeil_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

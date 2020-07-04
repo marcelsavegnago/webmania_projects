@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Resource: product.uom.categ -->
+        <record id="amh_agriculture_product_categ" model="product.category">
+            <field name="parent_id" ref="product.product_category_all"/>
+            <field name="name">Agriculture</field>
+        </record>
+
+        <record id="amh_goutteurs_product_categ" model="product.category">
+            <field name="parent_id" ref="agricul_base.amh_agriculture_product_categ"/>
+            <field name="name">GOUTTEURS</field>
+            <field name="type_amh">goutteurs</field>
+        </record>
+        <record id="amh_gaines_product_categ" model="product.category">
+            <field name="parent_id" ref="agricul_base.amh_agriculture_product_categ"/>
+            <field name="name">GAINES</field>
+            <field name="type_amh">gaines</field>
+        </record>
+
+        <record id="amh_pvc_product_categ" model="product.category">
+            <field name="parent_id" ref="agricul_base.amh_agriculture_product_categ"/>
+            <field name="name">PVC</field>
+            <field name="type_amh">pvc</field>
+        </record>
+        <record id="amh_pehd_product_categ" model="product.category">
+            <field name="parent_id" ref="agricul_base.amh_agriculture_product_categ"/>
+            <field name="name">PEHD</field>
+            <field name="type_amh">pehd</field>
+        </record>
+        <record id="amh_pebd_product_categ" model="product.category">
+            <field name="parent_id" ref="agricul_base.amh_agriculture_product_categ"/>
+            <field name="name">PEBD</field>
+            <field name="type_amh">pebd</field>
+        </record>
+        <record id="amh_woltman_product_categ" model="product.category">
+            <field name="parent_id" ref="agricul_base.amh_agriculture_product_categ"/>
+            <field name="name">COMPTEUR D'EAU</field>
+            <field name="type_amh">woltman</field>
+        </record>
+
+
+    </data>
+</openerp>

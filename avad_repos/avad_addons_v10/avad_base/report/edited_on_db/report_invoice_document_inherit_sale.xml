@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<data inherit_id="account.report_invoice_document">
+    <xpath expr="//div[@name='invoice_address']" position="attributes">
+        <attribute name="groups">!sale.group_delivery_invoice_address</attribute>
+    </xpath>
+    <xpath expr="//div[@name='invoice_address']" position="before">
+        <div class="col-xs-5 col-xs-offset-7" groups="sale.group_delivery_invoice_address" style="display:none;">
+            <strong t-if="o.partner_shipping_id == o.partner_id">Invoicing and shipping address:</strong>
+            <strong t-if="o.partner_shipping_id != o.partner_id">Invoicing address:</strong>
+            <div t-field="o.partner_id"
+                 t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+            <span t-if="o.partner_id.vat">TIN:
+                <span t-field="o.partner_id.vat"/>
+            </span>
+            <div t-if="o.partner_shipping_id != o.partner_id" class="mt8">
+                <strong>Shipping address:</strong>
+                <div t-field="o.partner_shipping_id"
+                     t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                <span t-if="o.partner_shipping_id.vat">TIN:
+                    <span t-field="o.partner_shipping_id.vat"/>
+                </span>
+            </div>
+        </div>
+    </xpath>
+</data>

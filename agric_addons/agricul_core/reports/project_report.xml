@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_amh_project_template">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+                <div class="header">
+                    <img src='agricul_core/static/imgs/logoRap.png' style="width:200px;height:60px;"/>
+                </div>
+                <div class="footer">
+                    <center>
+                        182 Avenue Abdelkrim khatabi - Résidence Zitouna 1er étage n°4 MARRAKECH
+                        <br/>
+                        R.C:67723 - Patente : 45184632 - I.F : 15245464 - CNSS : 4401858 Tél/Fax : 05 24 43 26 56 -
+                        <br/>
+                         <span t-if="o.company_id.email">Email:
+                            <span t-field="o.company_id.email"/>
+                        </span>
+                        <br/>
+                        <span class="pull-right" style="padding:3px;border:1px solid black;">
+                            <center>
+                            <span class="page" />
+                            </center>
+                        </span>
+                    </center>
+                </div>
+                <div class="page">
+                    <style>
+                        <![CDATA[
+
+                            /* Calibri */
+
+                            @font-face {
+
+                            font-family: 'Calibri';
+
+                            font-style: normal;
+
+                            src:url('/agricul_core/static/fonts/calibri.woff') format('woff'),
+url('/agricul_core/static/fonts/calibri.ttf') format('truetype');;
+
+                            }
+
+                            ]]>
+
+                        .hb2{
+                        color:#6BA125;
+                        border-bottom:2px solid red;
+                        text-transform:uppercase;
+                        }
+                        .hb3{
+                        color:#6BA125;
+                        text-transform:uppercase;
+                        font-size:1.2em;
+                        }
+                        .hb32{
+                        color:#258ED4;
+                        text-transform:uppercase;
+                        font-size:1.2em;
+                        }
+                        .tdgreen{
+                        color:#519551;
+                        font-weight:bold;
+                        text-align:center;
+                        font-size:1.2em;
+                        }
+                        .tdbold{
+                        font-size:1.2em;
+                        text-align:center;
+                        }
+                        .tdbold2{
+                        font-size:1.2em;
+                        text-align:left;
+                        }
+                        .th2{
+                        background-color: #eee;
+                        font-size:1.2em;
+                        text-align:center;
+                        }
+                        .th22{
+                        background-color: #eee;
+                        font-size:1.2em;
+                        text-align:center;
+                        }
+
+                        p{
+                        font-size:1.2em;
+                        }
+                        .culttd{
+                        font-weight: bold;
+                        font-size: 1.2em;
+                        background-color:cyan;
+                        }
+                        .doubleUnderline {
+                        text-decoration-line: underline;
+                        text-decoration-style: double;
+
+                        }
+                        .calibaripp{
+                        /*font-family:Calibri;*/
+                        font-size:2.3em;
+                        font-weight:bold;
+                        }
+
+                        .calibaripp2{
+                        /*font-family:Calibri;*/
+                        font-size:1.1em;
+                        font-weight:bold;
+                        }
+                        .mjd0{
+                        font-size: 42px;
+                        font-family: sans-serif;
+                        color:#244309;
+                        }
+                        .mjd1{
+                        font-size: 35px;
+                        font-family: sans-serif;
+                        color:#288bd8;
+                        }
+
+                        .mjd12{
+                        font-size: 28px;
+                        font-family: sans-serif;
+                        color:#288bd8;
+                        }
+
+                        .mjd22{
+                        font-size: 26px;
+                        font-family: sans-serif;
+                        }
+                        .mjd23{
+                        font-size: 24px;
+                        font-family: sans-serif;
+                        }
+                        .mj-calibri{
+                        font-family: Calibri;
+                        }
+                    </style>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div>
+                        <center style="font-weight:bold;">
+                            <b class="doubleUnderline mjd0">
+                                <u>DOSSIER TECHNIQUE</u>
+                            </b>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <span class="mjd1">
+                                PROJET D’EQUIPEMENT EN MATERIEL
+                                <br/>
+                                D’IRRIGATION LOCALISEE
+                            </span>
+                            <br/>
+                            <br/>
+                            <img src='agricul_core/static/imgs/gardeRap.png'/>
+                            <!--style="width:400px;height:350px;"/-->
+
+
+                        </center>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div>
+                        <p style="padding-left:150px;">
+                            <t t-if="o.partner_id and not o.nom_benif_report">
+                                <b class="doubleUnderline mjd22"
+                                   style="color:brown;">
+                                    <u>Bénéficiaire :</u>
+                                </b>
+                                <b class="mjd22">
+                                    <t t-esc="o.partner_id.genre_x"/>
+                                    <span t-esc="o.partner_id.name" style="text-transform: uppercase;"/>
+                                </b>
+                                <br/>
+                            </t>
+                            <t t-if="o.nom_benif_report">
+                                <b class="doubleUnderline mjd22"
+                                   style="color:brown;">
+                                    <u>Bénéficiaire :</u>
+                                </b>
+                                <b class="mjd22">
+                                    <span t-esc="o.nom_benif_report" style="text-transform: uppercase;"/>
+                                </b>
+                                <br/>
+                            </t>
+                            <t t-if="o.super_tot_printed and not o.spr_nette_report">
+                                <b class="doubleUnderline mjd22" style="color:brown;">
+                                    <u>Superficie Nette :</u>
+                                </b>
+                                <b class="mjd22">
+                                    <t t-esc="o.super_tot_printed"/>
+                                </b>
+                            </t>
+                            <t t-if="o.spr_nette_report">
+                                <b class="doubleUnderline mjd22" style="color:brown;">
+                                    <u>Superficie Nette :</u>
+                                </b>
+                                <b class="mjd22">
+                                    <t t-esc="o.spr_nette_report"/>
+                                </b>
+                            </t>
+                             <t t-if="o.address_agric_report">
+                                 <br/>
+                                <b class="doubleUnderline mjd22" style="color:brown;">
+                                    <u>Adresse complète de l’exploitation agricole:</u><br/>
+                                </b>
+                                <b class="mjd22">
+                                    <t t-esc="o.address_agric_report"/>
+                                </b>
+                            </t>
+                        </p>
+                    </div>
+                    <br/>
+                    <br/>
+                    <center class="mjd12">
+                        <strong t-if="o.sequence_agric and not o.num_dossier_report">
+                            Dossier N°:
+                            <span t-esc="o.sequence_agric"/>
+                        </strong>
+                        <strong t-if="o.num_dossier_report">
+                            Dossier N°:
+                            <span t-esc="o.num_dossier_report"/>
+                        </strong>
+                    </center>
+                    <br/>
+                    <br/>
+                    <p style="text-align:right;">
+                        <u class="mjd23 doubleUnderline">
+                            <b>
+                                <span>
+                                    <u>Date :</u>
+                                </span>
+                                <t t-if="o.date_report">
+                                    <span t-field="o.date_report"
+                                          t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
+                                </t>
+                                <t t-if="not o.date_report">
+                                    <span
+                                            t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                                </t>
+                            </b>
+                        </u>
+
+                    </p>
+
+                    <div style="page-break-before:always;">
+                        <h3 class="hb2">
+                            <strong>Identification de l'exploitation</strong>
+                        </h3>
+                        <div class="row mj-calibri" style="font-size:24px;">
+                            <t t-if="o.partner_id">
+
+                                <div class="col-xs-6">
+                                    <strong>Nom et prénom du bénéficiaire :</strong>
+                                </div>
+                                <div class="col-xs-6">
+                                    <strong style="text-transform:uppercase;" t-esc="o.partner_id.name"/>
+                                </div>
+                                <t t-if="o.partner_id.n_cin">
+
+                                    <div class="col-xs-6">
+                                        <strong>N° CIN :</strong>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <strong t-esc="o.partner_id.n_cin"/>
+                                    </div>
+                                </t>
+                            </t>
+                             <!--<t t-if="o.address_agric_report" class="hidden">-->
+                                <!--<div class="row row-eq-height" style="padding-left:15px;">-->
+                                <!--<div class="col-xs-6">-->
+                                        <!--<strong>Adresse complète de l’exploitation agricole:</strong>-->
+
+                                    <!--</div>-->
+                                    <!--<div classn="col-xs-6">-->
+                                    <!--<strong t-esc="o.address_agric_report"/>-->
+
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</t>-->
+                            <t t-if="o.douar">
+                                <div class="col-xs-6">
+                                    <strong>Douar :</strong>
+                                </div>
+                                <div class="col-xs-6">
+                                    <strong t-esc="o.douar"/>
+                                    &#160;
+                                </div>
+                            </t>
+                            <t t-if="o.commune">
+                                <div class="col-xs-6">
+                                    <strong>Commune Rurale :</strong>
+                                </div>
+                                <div class="col-xs-6">
+                                    <strong t-esc="o.commune"/>
+                                    &#160;
+                                </div>
+                            </t>
+                            <t t-if="o.cercle">
+                                <div class="col-xs-6">
+                                    <strong>Cercle :</strong>
+                                </div>
+                                <div class="col-xs-6">
+                                    <strong t-esc="o.cercle"/>
+                                    &#160;
+                                </div>
+                            </t>
+                            <t t-if="o.caidat">
+                                <div class="col-xs-6">
+                                    <strong>Caidat :</strong>
+                                </div>
+                                <div class="col-xs-6">
+                                    <strong t-esc="o.caidat"/>
+                                    &#160;
+                                </div>
+                            </t>
+                            <t t-if="o.province">
+                                <div class="col-xs-6">
+                                    <strong>Province :</strong>
+                                </div>
+                                <div class="col-xs-6">
+                                    <strong t-esc="o.province"/>
+                                    &#160;
+                                </div>
+                            </t>
+                            <t t-if="o.prefecture_report">
+                                <div class="col-xs-6">
+                                    <strong>Préfecture :</strong>
+                                </div>
+                                <div class="col-xs-6">
+                                    <strong t-esc="o.prefecture_report"/>
+                                    &#160;
+                                </div>
+                            </t>
+                        </div>
+                        <h3 class="hb2">
+                            <strong>1. DONNEES DE BASE :</strong>
+                        </h3>
+                        <div style="padding-left:15px;" class="row">
+                            <div class="col-xs-6">
+                                <strong class="hb3">Superficie totale de l’exploitation :</strong>
+                            </div>
+                            <div class="col-xs-6">
+                                <strong class="hb3">
+                                    <span t-esc="o.super_tot_printed"/>
+                                </strong>
+                            </div>
+                            <div class="col-xs-6">
+                                <strong class="hb3">Superficie nette à équiper:</strong>
+                            </div>
+                            <div class="col-xs-6">
+                                <strong class="hb3">
+                                    <span t-esc="o.super_nette_eqp"/>
+                                </strong>
+                            </div>
+                            <div class="col-xs-6">
+                                <strong class="hb3">Cultures à irriguer :</strong>
+                            </div>
+                            <div class="col-xs-6">
+                                <strong class="hb3">&#160;</strong>
+                            </div>
+                        </div>
+                        <div style="padding-left:20px;padding-right:20px;">
+                            <center>
+                                <table class="table table-bordered text-center" style="width:85%;">
+                                    <tr>
+                                        <th class="tdgreen">Culture</th>
+                                        <th class="tdgreen">superficie (ha)</th>
+                                        <th class="tdgreen">Densité</th>
+                                        <th class="tdgreen">Observations</th>
+                                    </tr>
+                                    <tbody>
+                                        <tr t-foreach="o.amh_cultures_irg" t-as="line">
+                                            <td class="tdbold">&#160;<span t-esc="line.amh_culture_id.name"/>
+                                            </td>
+                                            <td class="tdbold">&#160;<span t-esc="line.superficie_str"/>
+                                            </td>
+                                            <td class="tdbold">&#160;<span t-esc="line.densite_str"/>
+                                            </td>
+                                            <td class="tdbold">&#160;<span t-esc="line.observation_str"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </center>
+                        </div>
+                        <h2 class="hb3"><strong>SOL:</strong></h2>
+                        <div class="row" style="padding-left:30px;">
+                            <div class="col-xs-3">- &#160;&#160;&#160;&#160;<span style="font-size:1.2em;text-transform:uppercase;">Texture</span></div>
+                            <div class="col-xs-9">:
+                                <span style="font-size:1.2em;" t-esc="o.texture"/>
+                            </div>
+                            <div class="col-xs-3">- &#160;&#160;&#160;&#160;<span style="font-size:1.2em;text-transform:uppercase;">Perméabilité</span></div>
+                            <div class="col-xs-9">:
+                                <span style="font-size:1.2em;" t-field="o.premiablite"/>
+                            </div>
+                        </div>
+                        <h2 class="hb3"><strong>Topographie</strong></h2>
+                        <div class="row">
+                            <div class="col-xs-3">&#160;&#160;&#160;&#160;</div>
+                            <div class="col-xs-9">
+                                <span  style="font-size:1.2em;" t-esc="o.typ_terrain"/>
+                            </div>
+                            <div class="col-xs-3">&#160;&#160;&#160;&#160;</div>
+                            <div class="col-xs-9">&#160;</div>
+                                <!--(Voir Plan joint au dossier)-->
+
+                        </div>
+                        <h2 class="hb3"><strong>Ressources en eau :</strong></h2>
+                        <div>
+                            <p style="padding-left:30px;">
+                                <strong class="hb32" style="padding-left:60px;">
+                                    <!--
+                                    <span style="color:red;">▪</span>
+                                    ressources souterraines :
+                                    -->
+                                    &#160;
+                                </strong>
+                                <span t-esc="o.descrpition_puits"/>
+                            </p>
+
+                        </div>
+
+                        <center>
+                            <table style="width:70%" class="table table-bordered">
+                                <tbody>
+                                    <t t-set="nmpuit" t-value="0"/>
+                                    <t t-foreach="o.amh_puit_ids" t-as="puit">
+                                        <t t-set="nmpuit" t-value="nmpuit+1"/>
+                                        <t t-set="nr" t-value="1"/>
+                                        <t t-if="puit.niv_hedrostat" t-set="nr" t-value="nr+1"/>
+                                        <t t-if="puit.niv_hedrodynm" t-set="nr" t-value="nr+1"/>
+                                        <t t-if="puit.debit_exploit" t-set="nr" t-value="nr+1"/>
+                                        <t t-if="puit.debit_exploit_ls" t-set="nr" t-value="nr+1"/>
+                                        <t t-if="puit.pression_service_mce"  t-set="nr" t-value="nr+1"/>
+                                        <t t-if="puit.qualit_eau" t-set="nr" t-value="nr+1"/>
+                                        <tr>
+                                            <td t-att-rowspan="nr" style="text-align:center;" valign="middle">
+                                                <span t-esc="puit.puit_type_id and puit.puit_type_id.name"/>
+                                                &#160;
+                                            </td>
+                                            <td class="tdbold2">
+                                                Profondeur totale (m)
+                                            </td>
+                                            <td class="tdbold">
+                                                &#160;
+                                                <span t-esc="puit.prof_tot"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="puit.niv_hedrostat">
+                                            <td class="tdbold2">
+                                                Niveau hydrostatique (m)
+                                            </td>
+                                            <td class="tdbold">
+                                                &#160;
+                                                <span t-esc="puit.niv_hedrostat"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="puit.niv_hedrodynm">
+                                            <td class="tdbold2">
+                                                Niveau hydrodynamique (m)
+                                            </td>
+                                            <td class="tdbold">
+                                                &#160;
+                                                <span t-esc="puit.niv_hedrodynm"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="puit.debit_exploit">
+                                            <td class="tdbold2">
+                                                Débit d'exploitation (m3/h)
+                                            </td>
+                                            <td class="tdbold">
+                                                &#160;
+                                                <span t-esc="'%.2f'%puit.debit_exploit"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="puit.debit_exploit_ls">
+                                            <td class="tdbold2">
+                                                Débit d'exploitation (l/s)
+                                            </td>
+                                            <td class="tdbold">
+                                                &#160;
+                                                <span t-esc="'%.2f'%puit.debit_exploit_ls"/>
+                                            </td>
+                                        </tr>
+                                         <tr t-if="puit.pression_service_mce">
+                                            <td class="tdbold2">
+                                                Pression de service (mCE)
+                                            </td>
+                                            <td class="tdbold">
+                                                &#160;
+                                                <span t-esc="'%.2f'%puit.pression_service_mce"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="puit.qualit_eau">
+                                            <td class="tdbold2">
+                                                Qualité de l'eau
+                                            </td>
+                                            <td class="tdbold">
+                                                &#160;
+                                                <span t-esc="puit.qualit_eau"/>
+                                            </td>
+                                        </tr>
+                                        <t t-if="nmpuit &lt; len(o.amh_puit_ids)">
+                                            <tr>
+                                                <td colspan="3" class="th2">&#160;</td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </center>
+                    </div>
+                    <div style="page-break-before:always;">
+                        <h3 class="hb2">
+                            <strong>2. BESOINS EN EAU :</strong>
+                        </h3>
+                        <div style="padding-left:30px;font-size:1.2em;">
+                            - Besoin brut (Bb) en eau d’irrigation pendant le mois de pointe:
+                            <br/>
+                            <center>
+                                <strong>Bb = Kc x ETo x Kr/Ea</strong>
+                            </center>
+                        </div>
+                        <center>
+                            <table class="table table-bordered text-center" style="width:75%;">
+                                <tr>
+                                    <th class="th22">Culture</th>
+                                    <th class="th22">Eto</th>
+                                    <th class="th22">Kc</th>
+                                    <th class="th22">Kr</th>
+                                    <th class="th22">Ea = 90 %</th>
+                                    <th class="th22">Bb mm/j</th>
+                                </tr>
+                                <tr t-foreach="o.get_info_point_report()" t-as="dis">
+                                    <td>
+                                        <span t-esc="dis[0]"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="dis[1]"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="dis[2]"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="dis[3]"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="dis[4]"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="dis[5]"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table table-bordered text-center" style="width:85%;">
+                                <tr>
+                                    <th class="th22">Désignation</th>
+                                    <th class="th22">Sept.</th>
+                                    <th class="th22">Oct.</th>
+                                    <th class="th22">Nov.</th>
+                                    <th class="th22">Dec.</th>
+                                    <th class="th22">Jan.</th>
+                                    <th class="th22">Fev.</th>
+                                    <th class="th22">Mars</th>
+                                    <th class="th22">Avr.</th>
+                                    <th class="th22">Mai</th>
+                                    <th class="th22">Juin</th>
+                                    <th class="th22">Juil.</th>
+                                    <th class="th22">Aout</th>
+                                </tr>
+                                <tr t-foreach="o.amh_region_lines" t-as="line"
+                                    t-if="line.name in ['et0mmmois','et0mmjr']">
+                                    <td>
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.sept"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.oct"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.nov"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.dec"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.jan"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.fev"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.mars"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.avr"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.mai"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.juin"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.juil"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.aout"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table table-bordered text-center" style="width:85%;">
+                                <t t-set="culture" t-value="0"/>
+                                <tr t-foreach="o.dynm_precalcul_lines" t-as="line">
+                                    <t t-if="culture != line.amh_culture_id.id">
+                                        <td rowspan="5" class="culttd" style="vertical-align: middle;">
+                                            <span t-esc="line.amh_culture_id.name"/> &#160;
+                                        </td>
+                                        <t t-set="culture" t-value="line.amh_culture_id.id"/>
+                                    </t>
+                                    <td>
+                                        <span t-field="line.attribut" style="width:40px;"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.sept"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.oct"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.nov"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.dec"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.jan"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.fev"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.mars"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.avr"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.mai"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.juin"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.juil"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.aout"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'%line.total" t-if="line.attribut == 'be'"/> &#160;
+                                    </td>
+                                </tr>
+                                <t t-foreach="o.dynm_precalcul_down2_lines" t-as="line">
+                                    <tr>
+                                        <td colspan="2">
+                                            <span t-field="line.attribut"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.sept"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.oct"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.nov"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.dec"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.jan"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.fev"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.mars"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.avr"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.mai"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.juin"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.juil"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f'%line.aout"/>
+                                        </td>
+                                        <td><!--span t-esc="line.attribut"/-->
+                                            <span t-esc="'%.2f'%line.total"
+                                                  t-if="line.attribut in ['btc','vold','bilanrb']"/>
+                                            <span t-esc="'%.2f'%line.maxval"
+                                                  t-if="line.attribut in ['bilanrbb']"/>&#160;
+                                        </td>
+                                    </tr>
+                                    <t t-if="line.attribut == 'btc'">
+                                        <tr>
+                                            <td colspan="2">
+                                                <span t-field="line.attribut"/>
+                                            </td>
+                                            <td colspan="6" class="text-right">
+                                                &#160;Puit &#160;&#160;&#160;
+                                            </td>
+                                            <td>
+                                                <span t-esc="'%.2f'%o.resource_eau_dispo"/>
+                                            </td>
+                                            <td colspan="6">
+                                                <span>m3/h</span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+
+                            </table>
+                        </center>
+                        <div style="padding-left:70px;">
+                            <p>ETo &#160;&#160;: Evapotranspiration de référence ;</p>
+                            <p>Kr &#160;&#160;&#160;: Coefficient de réduction dépendant du taux de couverture du sol
+                                par la culture ;
+                            </p>
+                            <p>Ea &#160;&#160;&#160;: Efficience d’application de l’eau à la parcelle (90%).</p>
+                        </div>
+                    </div>
+
+                    <div style="page-break-before:always;">
+                        <h3 class="hb2">
+                            <strong>3. CALCULS HYDRAULIQUES :</strong>
+                        </h3>
+                        <br/>
+                        <h4 style="color:navy;">
+                            &#160;&#160;&#160;a. Distributeurs et écartements :
+                        </h4>
+
+                        <br/>
+                        <table class="table table-bordered text-center" style="width:85%;">
+                            <tr>
+                                <td>&#160;</td>
+                                <t t-foreach="o.sytheses_prj" t-as="line">
+                                    <td>
+                                        &#160;
+                                        <strong t-esc="line.culture_irg.name"/>
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr>
+                                <td>Goutteurs</td>
+                                <t t-foreach="o.sytheses_prj" t-as="line">
+                                    <td>
+                                        &#160;
+                                        <strong t-esc="line.goutteur_id.name"/>
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr>
+                                <td>Espacement entre goutteurs</td>
+                                <t t-foreach="o.sytheses_prj" t-as="line">
+                                    <td>
+                                        &#160;
+                                        <strong t-esc="'%.2f'%line.ecart_gtrs_cal"/>
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr>
+                                <td>Débit moyen (l/h)</td>
+                                <t t-foreach="o.sytheses_prj" t-as="line">
+                                    <td>
+                                        &#160;
+                                        <strong t-esc="'%.2f'%line.goutteur_id.q_moyen"/>
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr>
+                                <td>Nombre de rampes par ligne de culture</td>
+                                <t t-foreach="o.sytheses_prj" t-as="line">
+                                    <td>
+                                        &#160;
+                                        <strong t-esc="'%d'%line.nb_ramp_line"/>
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr>
+                                <td>Pression de service du distributeur (mCE)</td>
+                                <t t-foreach="o.sytheses_prj" t-as="line">
+                                    <td>
+                                        &#160;
+                                        <strong t-esc="line.press_gtr_dist"/>
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr>
+                                <td>Loi débit-pression</td>
+                                <t t-foreach="o.sytheses_prj" t-as="line">
+                                    <td>
+                                        &#160;
+                                        <t t-if="line.goutteur_id">
+                                        <strong>Q=<span t-esc="line.goutteur_id.k_value"/> Pa
+                                            <sup><span t-esc="line.goutteur_id.exposant"/></sup>
+                                        </strong>
+                                        </t>
+                                    </td>
+                                </t>
+                            </tr>
+                        </table>
+                        <br/>
+
+                        <h4 style="color:navy;">
+                            &#160;&#160;&#160;b. Pluviométrie fictive (Pf) et durée d’irrigation par poste (T):
+                        </h4>
+
+                        <br/>
+                        <table class="table table-bordered text-center" style="width:85%;">
+                            <tr>
+                                <td colspan="1" rowspan="2">
+                                    <strong>
+                                        <u>Caractéristique</u>
+                                    </strong>
+                                </td>
+                                <td colspan="1" rowspan="2">
+                                    <strong>
+                                        <u>Formule</u>
+                                    </strong>
+                                </td>
+                                <td t-att-colspan="o.nb_cultures_irg" rowspan="1">
+                                    <strong>
+                                        <u>Valeur</u>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <t t-foreach="o.sytheses_prj" t-as="line">
+                                    <td colspan="1">
+                                        &#160;
+                                        <strong t-esc="line.culture_irg.name"/>
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Pluviométrie calculée (mm /h)
+                                </td>
+                                <td>
+                                    Pf = qg/Sg
+                                </td>
+                                <t t-foreach="o.sytheses_prj" t-as="line">
+                                    <td colspan="1">
+                                        &#160;
+                                        <span t-esc="'%.2f'%line.pf_qg_sg"/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Durée d’irrigation par poste d’irrigation
+                                    <br/>
+                                    par jour (T)
+                                </td>
+                                <td>
+                                    T = Bb/Pf
+                                </td>
+                                <t t-foreach="o.sytheses_prj" t-as="line">
+                                    <td colspan="1">
+                                        &#160;
+                                        <span t-esc="line.duree_irg_sec_jr_h"/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                        </table>
+                        <p>
+                            qg : Débit du goutteur (l/h) ;
+                            <br/>
+                            Sg : Superficie par goutteur (m2).
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <report
+                string="Rapport Projet"
+                id="action_projet_repport_amh"
+                model="project.project"
+                report_type="qweb-pdf"
+                name="agricul_core.report_amh_project_template"
+                file="agricul_core.report_amh_project_template"
+        />
+        <!--                 paperformat="agricul_core.abdelm_paper_format"
+         -->
+    </data>
+</odoo>

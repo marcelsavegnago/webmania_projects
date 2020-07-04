@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_invoice_form_amh_project_eval">
+            <field name="name">account.invoice.form.amh.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath position="after" expr="//field[@name='partner_id']">
+                    <field name="our_project_id" readonly="1"/>
+                    <field name="our_sommeil_id" readonly="1"/>
+                    <field name="agence_id" readonly="1"/>
+                </xpath>
+                <xpath expr="//div[@groups='base.group_multi_currency']" position="after">
+                    <field name="date_start_project_n" />
+                    <field name="date_end_project_n" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_invoice_tree_amh">
+            <field name="name">account.invoice.tree.amh.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors">orange:contract_id!=False and state=='draft' and relance_ruc==False;yellow:relance_ruc=='1';green:relance_ruc=='2';red:relance_ruc=='3'</attribute>
+                </xpath>
+                <xpath position="after" expr="//field[@name='partner_id']">
+                    <field name="contract_id" invisible="1"/>
+                    <field name="our_project_id" readonly="1"/>
+                    <field name="date_start_project_n" readonly="1"/>
+                    <field name="date_end_project_n" readonly="1"/>
+                    <field name="our_sommeil_id" invisible="1"/>
+                    <field name="agence_id" readonly="1"/>
+                    <field name="medecin_prescripteur_id" readonly="1"/>
+                    <field name="medecin_traitant_id" readonly="1"/>
+                    <field name="specialite" readonly="1"/>
+                    <field name="nb_jours_create" invisible="0"/>
+                    <field name="relance_ruc" invisible="1"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

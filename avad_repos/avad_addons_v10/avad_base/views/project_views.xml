@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--<record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">-->
+        <!--<field name="name">Interventions</field>-->
+        <!--<field name="res_model">project.task</field>-->
+        <!--<field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>-->
+        <!--<field name="context">{-->
+        <!--'group_by': 'stage_id',-->
+        <!--'search_default_project_id': [active_id],-->
+        <!--'default_pacroject_id': active_id,-->
+        <!--}</field>-->
+        <!--<field name="view_ids" eval="[(5, 0, 0),-->
+        <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('project.view_task_tree2')}),-->
+        <!--(0, 0, {'view_mode': 'kanban', 'view_id': ref('project.view_project_kanban')})-->
+        <!--]"/>-->
+        <!--<field name="search_view_id" ref="project.view_task_search_form"/>-->
+        <!--<field name="help" type="html">-->
+        <!--<p class="oe_view_nocontent_create">-->
+        <!--Cliquer afin de creer une interventions.-->
+        <!--</p>-->
+        <!--</field>-->
+        <!--</record>-->
+
+
+        <record id="sale_order_action_kanban" model="ir.actions.act_window">
+            <field name="name">Devis/Bon commandes</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_our_project_id': active_id, 'search_our_project_id':active_id}</field>
+            <field name="domain">[('our_project_id','=', active_id)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer afin de créer un devis/bon de commande associé à cette demande.
+                </p>
+            </field>
+        </record>
+
+        <record id="edit_project_form_view_amh" model="ir.ui.view">
+            <field name="name">project.project.form.view.amh</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <!--<button name="action_attente_avad" string="Suivant" type="object"-->
+                        <!--attrs="{'invisible': [('avad_state','not in',['draft'])]}"/>-->
+                        <button name="action_validate_avad" string="Valider" type="object"
+                                attrs="{'invisible': [('demande','!=','location'),('avad_state','not in',['draft'])]}"/>
+
+                        <!--field attrs="{'invisible':[('demande','!=','location')]}" name="location_state"
+                               widget="statusbar"
+                               statusbar_visible="ouvert,instal,visitr,acceuil,visitr2,encours,cloture"/-->
+                        <field name="avad_state" widget="statusbar" statusbar_visible="draft,valid,done"/>
+                        <field name="related_status_dossier" widget="statusbar" statusbar_visible="new,appar,desappar" attrs="{'invisible':[('demande','!=','location')]}"/>
+
+                        
+                        
+                    </header>
+                </xpath>
+
+                <!--<xpath expr="//div[@ class='oe_button_box']/button[2]" position="replace">-->
+                <!--<button class="oe_stat_button" type="action" attrs="{'invisible':[('use_tasks','=', False)]}" name="%(project.act_project_project_2_project_task_all)d" icon="fa-tasks">-->
+                <!--<field string="Interventions" name="task_count" widget="statinfo" options="{'label_field': 'label_tasks'}"/>-->
+                <!--</button>-->
+
+                <!--</xpath>-->
+
+                <xpath expr="//div[@ class='oe_button_box']/button[2]" position="after">
+                    <button class="oe_stat_button" name="%(sale_order_action_kanban)d" type="action" icon="fa-th-large">
+                        <field string="Devis/Bon commandes" name="sale_orders_count" widget="statinfo"
+                               context="{'default_partner_id':patient_id}"/>
+                    </button>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[@name='options_active']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <br/>
+                    <field name="ref_seq" readonly="1" invisible="1"/>
+                    <br/>
+                    <div class="alert alert-warning" attrs="{'invisible':[('doc_count','!=',0)]}"
+                         style="font-size:10px;">
+                        Cette demande manque des pièces jointes.
+                    </div>
+                    <!--readonly="1" attrs="{'invisible':[('state','not in',['won','lost'])]}"/-->
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="invisible">False</attribute>
+                    <attribute name="attrs">{'readonly': [('ref_seq','!=',False)], 'invisible':
+                        [('ref_seq','=',False)]}
+                    </attribute>
+
+                </xpath>
+                <xpath expr="//notebook" position="before">
+                    <group>
+                        <group>
+                            <field name="agence_id" options="{'no_create_edit':true,'no_open':true}"/>
+                            <field name="cible"/>
+                            <field name="canal_avad"/>
+                            <field name="demande"/>
+                        </group>
+                        <group>
+                            <field name="parent_id" invisible="1"/>
+                            <field name="date_new"/>
+                            <field name="patient_id"
+                                   context="{'default_type_client':'patient', 'type_client':'patient'}"/>
+                            <field name="medecin_prescripteur_id"
+                                   context="{'default_type_client':'medecins', 'type_client':'medecins'}"/>
+                            <field name="medecin_traitant_id" attrs="{'required':[('cible','=','medecin_traitant')]}"
+                                   context="{'default_type_client':'medecins', 'type_client':'medecins'}"/>
+                        </group>
+                    </group>
+                    <group string="Location infos." attrs="{'invisible':[('demande','!=','location')]}">
+                        <group>
+                            <field name="nb_mois_loc"/>
+                            <field name="start_date_loc"/>
+                            <field name="end_date_loc"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Factures recurrentes" attrs="{'invisible':[('demande','!=','location')]}">
+                        <div>
+                            <field name="recurring_invoices" class="oe_inline"/>
+                            <field name="create_invoice_visibility" invisible="1"/>
+                            <label for="recurring_invoices"/>
+                        </div>
+                        <group col="4" attrs="{'invisible': [('recurring_invoices','!=',True)]}">
+                            <label for="recurring_interval"/>
+                            <div>
+                                <field name="recurring_interval" class="oe_inline"
+                                       attrs="{'required': [('recurring_invoices', '=', True)]}"/>
+                                <field name="recurring_rule_type" class="oe_inline"
+                                       attrs="{'required': [('recurring_invoices', '=', True)]}"/>
+                            </div>
+                            <field name="recurring_invoicing_type"
+                                   attrs="{'required': [('recurring_invoices', '=', True)]}"/>
+                            <field name="date_start" attrs="{'required': [('recurring_invoices', '=', True)]}"/>
+                            <field name="date_end"/>
+                            <field name="recurring_next_date"
+                                   attrs="{'required': [('recurring_invoices', '=', True)]}"/>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Appareillage / Desappareillage" attrs="{'invisible':[('demande','!=','location')]}">
+                        <group>
+                            <group>
+                                <field name="status_dossier"/>
+                            </group>
+                            <group>
+                                <field name="date_appar" attrs="{'invisible':[('status_dossier','=', False)], 'required':[('status_dossier','=', 'appar')]}"/>
+                                <field name="date_desappar" attrs="{'invisible':[('status_dossier','=', False)], 'required':[('status_dossier','=', 'desappar')]}"/>
+                                <field name="motif_desappar" attrs="{'invisible':[('status_dossier','=', False)], 'required':[('status_dossier','=', 'desappar')]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_project_view_amh" model="ir.ui.view">
+            <field name="name">project.tree.view.amh</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="agence_id"/>
+                    <field name="patient_id" context="{'default_type_client':'patient', 'type_client':'patient'}"/>
+                    <field name="medecin_prescripteur_id"
+                           context="{'default_type_client':'medecins', 'type_client':'medecins'}"/>
+                    <field name="demande"/>
+                    <field name="cible"/>
+                    <field name="date_new"/>
+                    <field name="date_appar" string="Appareillage" attrs="{'invisible':[('demande','!=','location')]}"/>
+                    <field name="date_desappar"  string="Desappareillage" attrs="{'invisible':[('demande','!=','location')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_project_kanban_view_amh" model="ir.ui.view">
+            <field name="name">project.project.kanban.amh</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="default_group_by">avad_state</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_task_form2_view_amh" model="ir.ui.view">
+            <field name="name">project.task.form2.view.amh</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                    <attribute name="string">Référence du demande</attribute>
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="placeholder">...</attribute>
+                </xpath>
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <field name="type_stage_avad" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Intervenant</attribute>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="attributes">
+                    <attribute name="clickable">0</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='tag_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_deadline']" position="attributes">
+                    <attribute name="string">Date d'intervention</attribute>
+                </xpath>
+                <xpath expr="//notebook" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="objet_suivi_ids" invisible="1"/>
+                    <field name="objet_suivi_id" domain="[('id','in', objet_suivi_ids[0][2])]"
+                           options="{'no_create_edit':true, 'no_open':true}"
+                           attrs="{'required':[('type_stage_avad','!=','rapport')]}"/>	
+		   <field name="comment" />
+                </xpath>
+		
+                <!-- Rapport stage custom view -->
+
+                <xpath expr="//header/field[@name='stage_id']" position="replace">
+                    <button name="%(action_rapport_ppc)d" string="Imprimer PPC"
+                            attrs="{'invisible':[('type_rapport','!=','PPC')]}"
+                            type="action"/>
+                    <button name="%(action_rapport_vni)d" string="Imprimer VNI"
+                            attrs="{'invisible':[('type_rapport','!=','VNI')]}"
+                            type="action"/>
+                    <button name="%(action_rapport_o2)d" string="Imprimer O2"
+                            attrs="{'invisible':[('type_rapport','!=','O2')]}"
+                            type="action"/>
+                </xpath>
+                <xpath expr="//sheet/group[1]" position="after">
+                    <group>
+                        <group>
+                            <field name="stage_id" string="Type d'interventions" required='1'
+                                   domain="[('type_stage','in',['appar','suivi','rapport','desappar','qualite','maintenance'])]"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible':[('type_stage_avad','!=','rapport')]}">
+                        <group>
+                            <field name="type_rapport" attrs="{'required':[('type_stage_avad','=','rapport')]}"/>
+                        </group>
+                    </group>
+
+                    <group attrs="{'invisible':[('type_rapport','not in',['PPC', 'VNI','O2'])]}">
+                        <group>
+                            <field name="date_visite" attrs="{'required':[('type_rapport','in',['PPC', 'VNI'])]}"/>
+                            <field name="type_vst"
+                                   attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                            <field name="type_vst_o2"
+                                   attrs="{'required':[('type_rapport','in',['O2'])],'invisible':[('type_rapport','not in',['O2'])]}"/>
+
+                        </group>
+                        <group>
+                            <field name="lieu"
+                                   attrs="{'required':[('type_rapport','in',['PPC'])],'invisible':[('type_rapport','not in',['PPC','VNI','O2'])]}"/>
+                        </group>
+                    </group>
+
+                    <group attrs="{'invisible':[('type_rapport','not in',['PPC','VNI'])]}">
+                        <group string="Informations patient">
+                            <field name="ddn"
+                                   attrs="{'required':[('type_rapport','=','PPC')],'invisible':[('type_rapport','not in',['PPC'])]}"/>
+                            <field name="iah_initial"
+                                   attrs="{'required':[('type_rapport','=','PPC')],'invisible':[('type_rapport','not in',['PPC'])]}"/>
+                            <field name="poids"
+                                   attrs="{'required':[('type_rapport','=','PPC')],'invisible':[('type_rapport','not in',['PPC'])]}"/>
+                            <field name="taille"
+                                   attrs="{'required':[('type_rapport','=','PPC')],'invisible':[('type_rapport','not in',['PPC'])]}"/>
+                            <field name="imc"
+                                   attrs="{'required':[('type_rapport','=','PPC')],'invisible':[('type_rapport','not in',['PPC'])]}"/>
+                            <field name="date_intal_vni"
+                                   attrs="{'required':[('type_rapport','=','VNI')],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                        </group>
+
+                        <group string="Matériel" attrs="{'invisible':[('type_rapport','not in',['PPC'])]}">
+                            <field name="type_appareil" attrs="{'required':[('type_rapport','=','PPC')]}"/>
+                            <field name="num_serie" attrs="{'required':[('type_rapport','=','PPC')]}"/>
+                            <field name="type_masque"/>
+                            <field name="marque_masque"/>
+                            <field name="humidification" attrs="{'required':[('type_rapport','=','PPC')]}"/>
+                            <field name="cir_chauff" attrs="{'required':[('type_rapport','=','PPC')]}"/>
+                        </group>
+                    </group>
+
+                    <group string="Observance Patient" attrs="{'invisible':[('type_rapport','not in',['PPC','VNI'])]}">
+                        <group>
+                            <field name="date_db" attrs="{'required':[('type_rapport','in',['PPC','VNI'])]}"/>
+                            <field name="dur_utlis"
+                                   attrs="{'required':[('type_rapport','=','PPC')],'invisible':[('type_rapport','not in',['PPC'])]}"/>
+                            <field name="tolerance"
+                                   attrs="{'required':[('type_rapport','=','PPC')],'invisible':[('type_rapport','not in',['PPC'])]}"/>
+                            <field name="moy_utlis_vni"
+                                   attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                            <field name="iah_resid_vni"
+                                   attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                            <field name="nb_hrs_vni"
+                                   attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                        </group>
+                        <group>
+                            <field name="date_fn" attrs="{'required':[('type_rapport','in',['PPC','VNI'])]}"/>
+                            <field name="dur_someil"
+                                   attrs="{'required':[('type_rapport','=','PPC')],'invisible':[('type_rapport','not in',['PPC'])]}"/>
+                            <field name="motif_tolerance"
+                                   attrs="{'invisible':['|',('tolerance','!=','1'),('type_rapport','!=','PPC')]}"/>
+                            <field name="vlm_moy_vni"
+                                   attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                            <field name="freq_moy_vni"
+                                   attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                        </group>
+                    </group>
+
+                    <group string="Fuites" attrs="{'invisible':[('type_rapport','!=','PPC')]}">
+                        <group>
+                            <field name="fuite" attrs="{'required':[('type_rapport','=','PPC')]}"/>
+                            <field name="fuite_origine" attrs="{'required':[('type_rapport','=','PPC')]}"/>
+                        </group>
+                        <group>
+                            <field name="taux_fuite" attrs="{'invisible':[('fuite','!=','1')]}"/>
+                        </group>
+                    </group>
+
+                    <group string="Pressions" attrs="{'invisible':[('type_rapport','!=','PPC')]}">
+                        <group>
+                            <field name="pres_p" attrs="{'required':[('type_rapport','=','PPC')]}"/>
+                            <field name="pres_moy" attrs="{'required':[('type_rapport','=','PPC')]}"/>
+                            <field name="rampe"/>
+                        </group>
+                        <group>
+                            <field name="pres_min" attrs="{'required':[('type_rapport','=','PPC')]}"/>
+                            <field name="pres_max" attrs="{'required':[('type_rapport','=','PPC')]}"/>
+                        </group>
+                    </group>
+
+                    <group string="IAH" attrs="{'invisible':[('type_rapport','!=','PPC')]}">
+                        <group>
+                            <field name="iah_resid" attrs="{'required':[('type_rapport','=','PPC')]}"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <!-- VNI -->
+                        <page string="Appareillage"
+                              attrs="{'invisible':[('type_rapport','not in',['VNI'])]}">
+                            <group>
+                                <group string="Matériel" attrs="{'invisible':[('type_rapport','not in',['VNI'])]}">
+                                    <field name="modele_mat_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                                    <field name="marque_mat_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                                    <field name="humd_mat_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                                    <field name="oxy_mat_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+
+                                </group>
+                                <group string="Masque" attrs="{'invisible':[('type_rapport','not in',['VNI'])]}">
+                                    <field name="interface_mas_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                                    <field name="modele_mas_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                                    <field name="marque_mas_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                                    <field name="tmasq_mas_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Réglage Appareil"
+                              attrs="{'invisible':[('type_rapport','not in',['VNI'])]}">
+                            <group>
+                                <group string="Réglage" attrs="{'invisible':[('type_rapport','not in',['VNI'])]}">
+                                    <field name="ipap_reg_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                                    <field name="epap_reg_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                                    <field name="freq_reg_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+
+                                </group>
+                                <group string="Mode" attrs="{'invisible':[('type_rapport','not in',['VNI'])]}">
+                                    <field name="timax_mode_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                                    <field name="timin_mode_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+                                    <field name="pente_mode_vni"
+                                           attrs="{'required':[('type_rapport','in',['VNI'])],'invisible':[('type_rapport','not in',['VNI'])]}"/>
+
+                                </group>
+                            </group>
+                        </page>
+                        <!-- O2 -->
+                        <page string="Appareillage"
+                              attrs="{'invisible':[('type_rapport','not in',['O2'])]}">
+                            <group>
+                                <group>
+                                    <field name="modele_apr_o2"
+                                           attrs="{'required':[('type_rapport','in',['O2'])], 'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                    <field name="num_ser_o2"
+                                           attrs="{'required':[('type_rapport','in',['O2'])], 'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                    <field name="com_apr_o2"
+                                           attrs="{'required':[('type_rapport','in',['O2'])], 'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Observations Cliniques"
+                              attrs="{'invisible':[('type_rapport','not in',['O2'])]}">
+                            <group>
+                                <group>
+                                    <field name="tabac_o2"
+                                           attrs="{'required':[('type_rapport','in',['O2'])], 'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                    <field name="hosp_o2"
+                                           attrs="{'required':[('type_rapport','in',['O2'])], 'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                    <field name="phot_o2"
+                                           attrs="{'required':[('type_rapport','in',['O2'])], 'invisible':[('type_rapport','not in',['O2'])]}"/>
+
+                                </group>
+                                <group>
+                                    <field name="nbr_cig_o2" attrs="{'invisible':[('tabac_o2','!=','1')]}"/>
+                                    <field name="duree_o2"
+                                           attrs="{'required':[('type_rapport','in',['O2'])], 'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Prescription Médical"
+                              attrs="{'invisible':[('type_rapport','not in',['O2'])]}">
+                            <group>
+                                <group>
+                                    <field name="typeox_o2"
+                                           attrs="{'required':[('type_rapport','in',['O2'])], 'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                    <field name="debit_o2"
+                                           attrs="{'required':[('type_rapport','in',['O2'])], 'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                    <field name="nhours_o2"
+                                           attrs="{'required':[('type_rapport','in',['O2'])], 'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Analyse Oxymetrie/Observance"
+                              attrs="{'invisible':[('type_rapport','not in',['O2'])]}">
+                            <group string="Sans O2">
+                                <group>
+                                    <field name="sao2_sans_o2"
+                                           attrs="{'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                </group>
+                                <group>
+                                    <field name="fcbpm_sans_o2"
+                                           attrs="{'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                </group>
+                            </group>
+                            <group string="Sous O2">
+                                <group>
+                                    <field name="sao2_sous_o2"
+                                           attrs="{'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                </group>
+                                <group>
+                                    <field name="fcbpm_sous_o2"
+                                           attrs="{'invisible':[('type_rapport','not in',['O2'])]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <!-- Common -->
+                        <page string="Observation Infirmière"
+                              attrs="{'invisible':[('type_rapport','not in',['PPC', 'VNI','O2'])]}">
+                            <group>
+                                <group>
+                                    <field name="date_pr_visit"/>
+                                    <field name="conclusion"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </xpath>
+
+
+            </field>
+        </record>
+
+
+        <record id="task_type_edit_view_amh" model="ir.ui.view">
+            <field name="name">project.task.type.form2.view.amh</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="type_stage"/>
+                </xpath>
+                <xpath expr="//field[@name='project_ids']" position="attributes">
+                    <attribute name="string">Demandes</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/group[1]" position="after">
+                    <group>
+                        <field name='objet_suivi_ids' options="{'no_create_edit': True}" widget='many2many_tags'/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="search_project_ssi_project" model="ir.ui.view">
+            <field name="name">project.tree.view.search.ssi</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_project_filter"/>
+             <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                   <field name="demande"/>
+                   <field name="agence_id"/>
+                   <field name="patient_id"/>
+                   <field name="medecin_prescripteur_id"/>
+                   <field name="start_date_loc"/>
+                   <field name="end_date_loc"/>
+                   <field name="status_dossier"/>
+                   <field name="date_appar"/>
+                   <field name="date_desappar"/>
+                   <field name="motif_desappar"/>
+               </xpath>
+               <xpath expr="//filter[1]" position="after">
+                   <separator orientation="vertical"/>
+                   <filter name="grp_appar_date_month" string="Date appareillage" domain="[('date_appar','!=', False)]" context="{'group_by':'date_appar'}"/>
+                   <filter name="grp_desappar_date_month"  string="Date des-appareillage" domain="[('date_desappar','!=', False)]" context="{'group_by':'date_desappar'}"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="pivot_project_ssi_appar" model="ir.ui.view">
+            <field name="name">project.tree.view.pivot.ssi</field>
+            <field name="model">project.project</field>
+             <field name="arch" type="xml">
+                <pivot string="Projets SSI appareillage">
+                   <field name="agence_id" type="row"/>
+                   <field name="date_appar" type="col"/>
+                   <!--field name="date_desappar"/>
+                   <field name="motif_desappar"/-->
+                   
+                </pivot>
+            </field>
+        </record>
+         <record id="pivot_project_ssi_desappar" model="ir.ui.view">
+            <field name="name">project.tree.view.pivot.ssi</field>
+            <field name="model">project.project</field>
+             <field name="arch" type="xml">
+                <pivot string="Projets SSI appareillage">
+                   <field name="agence_id" type="row"/>
+                   <field name="date_desappar" type="col"/>
+                   <!--field name="date_desappar"/>
+                   <field name="motif_desappar"/-->
+                   
+                </pivot>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

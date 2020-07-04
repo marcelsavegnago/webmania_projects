@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Regions -->
+        <record id="region_line_amh_tree_view" model="ir.ui.view">
+            <field name="name">region.ligne.tree</field>
+            <field name="model">amh.region.line</field>
+            <field name="arch" type="xml">
+                <tree string="Lignes régions">
+                    <field name="amh_region_id" readonly="1"/>
+                    <field name="project_id" readonly="1"/>
+                    <field name="name"/>
+                    <field name="sept"/>
+                    <field name="oct"/>
+                    <field name="nov"/>
+                    <field name="dec"/>
+                    <field name="jan"/>
+                    <field name="fev"/>
+                    <field name="mars"/>
+                    <field name="avr"/>
+                    <field name="mai"/>
+                    <field name="juin"/>
+                    <field name="juil"/>
+                    <field name="aout"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="region_amh_tree" model="ir.ui.view">
+            <field name="name">region.tree</field>
+            <field name="model">amh.region</field>
+            <field name="arch" type="xml">
+                <tree string="Regions">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="region_amh_form" model="ir.ui.view">
+            <field name="name">region.form</field>
+            <field name="model">amh.region</field>
+            <field name="arch" type="xml">
+                <form string="Regions">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <notebook>
+                            <page string="Caractéristiques">
+                                <field name="region_lines" mode="tree">
+                                    <tree string="Region carats" editable="top" create="false" delete="false" options="{'no_open':True}">
+                                        <field name="amh_region_id" invisible="1"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="sept" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                        <field name="oct" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                        <field name="nov" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                        <field name="dec" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                        <field name="jan" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                        <field name="fev" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                        <field name="mars" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                        <field name="avr" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                        <field name="mai" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                        <field name="juin" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                        <field name="juil" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                        <field name="aout" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Culture -->
+        <record id="culture_line_amh" model="ir.ui.view">
+            <field name="name">culture.ligne.tree</field>
+            <field name="model">amh.culture.line</field>
+            <field name="arch" type="xml">
+                <tree string="Culture carats">
+                    <field name="amh_culture_id" readonly="1"/>
+                    <field name="name"/>
+                    <field name="sept"/>
+                    <field name="oct"/>
+                    <field name="nov"/>
+                    <field name="dec"/>
+                    <field name="jan"/>
+                    <field name="fev"/>
+                    <field name="mars"/>
+                    <field name="avr"/>
+                    <field name="mai"/>
+                    <field name="juin"/>
+                    <field name="juil"/>
+                    <field name="aout"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="culture_amh_tree" model="ir.ui.view">
+            <field name="name">culture.tree</field>
+            <field name="model">amh.culture</field>
+            <field name="arch" type="xml">
+                <tree string="Cultures">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="culture_amh_form" model="ir.ui.view">
+            <field name="name">culture.form</field>
+            <field name="model">amh.culture</field>
+            <field name="arch" type="xml">
+                <form string="Culture">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <notebook>
+                            <page string="Caractéristiques">
+                                <field name="culture_lines" mode="tree">
+                                    <tree string="Culture carats" editable="top" create="false" delete="false">
+                                        <field name="amh_culture_id" invisible="1"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="sept"/>
+                                        <field name="oct"/>
+                                        <field name="nov"/>
+                                        <field name="dec"/>
+                                        <field name="jan"/>
+                                        <field name="fev"/>
+                                        <field name="mars"/>
+                                        <field name="avr"/>
+                                        <field name="mai"/>
+                                        <field name="juin"/>
+                                        <field name="juil"/>
+                                        <field name="aout"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="transport_management_vehicle_status_form_view">
+        <field name="name">Véhicules</field>
+        <field name="model">transport.vehicle.status</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle">
+                <header>
+                    <button name="action_reshedule" states="cancel" string="Reshedule" type="object" class="btn-primary"/>
+                    <button name="start_action" states="draft" string="Départ" type="object" class="btn-primary"/>
+                    <button name="action_cancel" states="draft" type="object" string="Annuler"/>
+                    <button name="action_done" states="draft,start,waiting" type="object" string="Arrivée"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,start,cancel,done" readonly="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="transportation_name"/>
+                            <field name="departure_city"/>
+                            <field name="fuel_costs"/>
+                            <field name="sale_order"/>
+                            <field name="no_parcels"/>
+                        </group>
+                        <group>
+                            <field name="transport_date"/>
+                            <field name="destination_city_wm"/>
+                            <field name="travelling_expenses"/>
+                            <field name="delivery_order"/>
+                        </group>
+                    </group>
+                    <group string="Paiement" >
+                        <group>
+                            <field name="amount_of_checks"/>
+                            <field name="amount_of_cash"/>
+                            <field name="amount_of_effects"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+        </record>
+
+        <record id="vehicle_status_tree_view" model="ir.ui.view">
+            <field name="name">Transport Management System </field>
+            <field name="model">transport.vehicle.status</field>
+            <field name="arch" type="xml">
+                <tree>
+	            <field name="transport_date" string="Date de d  part"/>
+                    <field name="transportation_name" string="Chauffeur"/>
+                    <field name="departure_city" string="Départ"/>
+                    <field name="destination_city_wm" string="Arrivée"/>
+                    <field name="amount_of_checks" sum="Total chèques" />
+                    <field name="amount_of_cash" sum="Total espèces" />
+                    <field name="amount_of_effects" sum="Total effets" />
+                    <field name="fuel_costs" sum="Frais carburant"/>
+                    <field name="travelling_expenses" sum="Frais de déplacement"/>
+                </tree>
+            </field>
+        </record>
+	
+	<record id="vehicle_calendar_view" model="ir.ui.view">
+            <field name="name">vehicle.depart.calendar</field>
+            <field name="model">transport.vehicle.status</field>
+            <field name="type">calendar</field>              
+            <field name="arch" type="xml">
+                <calendar color="transportation_name"  date_start="transport_date" string="temps">
+                    <field name="transportation_name" />
+                    <field name="departure_city" />
+		            <field name="destination_city_wm" />
+                </calendar>
+            </field>
+	</record>	
+
+
+        <record id="vehicle_status_action" model="ir.actions.act_window">
+            <field name="name">Gestion des transports</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">transport.vehicle.status</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="vehicle_status_tree_view"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Gestion des transports .
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="main_transportation_vehicle_status_menu" parent="transport_management"  name="Gestion des transports"   action="vehicle_status_action" sequence="0"/>
+
+    </data>
+</odoo>

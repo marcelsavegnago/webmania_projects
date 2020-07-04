@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_forfait_tree" model="ir.ui.view">
+            <field name="name">product.forfait.tree.amh</field>
+            <field name="model">product.forfait</field>
+            <field name="arch" type="xml">
+                <tree string="Forfaits">
+                    <field name="name"/>
+                    <field name="designation"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_forfait_form" model="ir.ui.view">
+            <field name="name">product.forfait.form.amh</field>
+            <field name="model">product.forfait</field>
+            <field name="arch" type="xml">
+                <form string="Forfaits">
+                    <sheet>
+                        <group>
+
+                            <field name="name"/>
+                            <field name="designation"/>
+                        </group>
+                        <notebook>
+                            <page string="Articles">
+                                <field name="tmpl_product_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_forfait_search" model="ir.ui.view">
+            <field name="name">product.forfait.search.amh</field>
+            <field name="model">product.forfait</field>
+            <field name="arch" type="xml">
+                <search string="Forfaits">
+                    <field name="name"/>
+                    <field name="designation"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="amh_relance_invoice_tree" model="ir.ui.view">
+            <field name="name">amh.relance.invoice.tree.amh</field>
+            <field name="model">amh.relance.invoice</field>
+            <field name="arch" type="xml">
+                <tree string="Relances" editable="top" create="false">
+                    <field name="name" readonly="1"/>
+                    <field name="nb_jours" readonly="1"/>
+                    <field name="users_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+
+    </data>
+</odoo>

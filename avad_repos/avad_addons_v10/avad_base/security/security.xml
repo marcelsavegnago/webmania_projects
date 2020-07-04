@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="avad_app">
+            <field name="name">Avad </field>
+            <field name="description">Gérer Avad</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="group_avad_user" model="res.groups">
+            <field name="name">Avad user</field>
+            <field name="category_id" ref="avad_base.avad_app"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Avad user</field>
+        </record>
+
+        <record id="group_avad_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="avad_base.avad_app"/>
+            <field name="implied_ids" eval="[(4, ref('group_avad_user'))]"/>
+            <field name="comment">Avad manager</field>
+        </record>
+
+    </data>
+</odoo>

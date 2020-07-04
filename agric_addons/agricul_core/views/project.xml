@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="edit_project_form_view_amh" model="ir.ui.view">
+            <field name="name">project.project.form.view.amh</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <xpath expr="//field[@name='name']" position="after">
+                   <br/>
+                    <!--<field name="sequence_agric" readonly="1" attrs="{'invisible':[('state','not in',['won','lost'])]}"/>-->
+                    <field name="sequence_agric" readonly="1"  attrs="{'invisible': ['|',('sequence_agric', '=', '')]}" />
+                </xpath>
+
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <field name="state" widget="statusbar" clickable="True"/>
+                    </header>
+                </xpath>
+                <xpath expr="//notebook//page[1]/group[1]" position="after">
+                    <group>
+                        <group>
+
+                            <field name="douar" required="0"/>
+                            <field name="cooperative" required="0"/>
+                            <field name="commune" required="0"/>
+                            <field name="province" required="0"/>
+                            <field name="prefecture_report" required="0"/>
+                        </group>
+                        <group>
+                            <field name="caidat" required="0"/>
+                            <field name="cercle" required="0"/>
+                            <field name="amh_region_id" required="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="super_tot_printed" help="3ha 30a30ca"/>
+                            <field name="super_nette_eqp" help="3ha 30a30ca"/>
+
+                        </group>
+                        <group>
+                            <field name="mois_pointe"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <field name="id" invisible="1"/>
+                    <page string="Page de garde">
+                        <group>
+                            <group>
+                                <field name="date_report"/>
+                                <field name="nom_benif_report"/>
+                                <field name="num_dossier_report"/>
+                                <field name="spr_nette_report"/>
+                                <field name="address_agric_report"/>
+
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Données de base">
+                        <h3 class="o_horizontal_separator">Cultures à irriguer</h3>
+                        <field name="amh_cultures_irg" mode="tree">
+                            <tree>
+                                <field name="amh_culture_id"/>
+                                <field name="superficie_str"/>
+                                <field name="densite_str"/>
+                                <field name="observation_str"/>
+                            </tree>
+                        </field>
+
+                        <group string="SOL">
+                            <field name="texture"/>
+                            <field name="premiablite"/>
+                        </group>
+                        <group string="TOPOGRAPHIE">
+                            <field name="typ_terrain"/>
+                        </group>
+
+                        <h3 class="o_horizontal_separator">RESSOURCES EN EAU</h3>
+                        <group>
+                            <field name="descrpition_puits"/>
+                        </group>
+                        <field name="nb_cultures_irg" invisible="1"/>
+                        <field name="amh_puit_ids" mode="tree">
+                            <tree editable="top">
+                                <field name="description" invisible="1"/>
+                                <field name="puit_type_id" options="{'no_create_edit':true, 'no_open':true}"/>
+                                <field name="prof_tot"/>
+                                <field name="niv_hedrostat"/>
+                                <field name="niv_hedrodynm"/>
+                                <field name="debit_exploit"/>
+                                <field name="debit_exploit_ls"/>
+                                <field name="pression_service_mce"/>
+                                <field name="qualit_eau"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Besoin en eau">
+                        <div class="row" style="margin:7px;">
+                            <div class="col-xs-3">
+                                <button style="background-color:salmon; width:95%;" name="generate_besoin_eau"
+                                        type="object" string="Générer"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <button style="background-color:lightgreen; width:95%;" name="update_besoin_eau"
+                                        type="object" string="Mettre à jours"/>
+                            </div>
+                            <div class="col-xs-3">
+                                &#160;
+                            </div>
+                            <div class="col-xs-3">
+                                &#160;
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="conserver_cal"/>
+                            </group>
+                        </group>
+                        <h3 class="o_horizontal_separator">Attributs région</h3>
+                        <field name="amh_region_lines" mode="tree">
+                            <tree editable="top" create="false" delete="false">
+                                <field name="amh_region_id" invisible="1"/>
+                                <field name="project_id" invisible="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="sept" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="oct" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="nov" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="dec" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="jan" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="fev" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="mars" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="avr" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="mai" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="juin" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="juil" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="aout" attrs="{'readonly':[('name','in',['et0m3mois','et0mmmois'])]}"/>
+                                <field name="total"
+                                       attrs="{'invisible':[('name','not in',['et0m3mois','et0mmmois'])]}"/>
+                            </tree>
+                        </field>
+                        <h3 class="o_horizontal_separator">Attributes cultures</h3>
+                        <field name="culture_prj_lines" mode="tree">
+                            <tree string="Culture carats" editable="top" create="false" delete="false">
+                                <field name="amh_culture_prj_id" readonly="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="sept"/>
+                                <field name="oct"/>
+                                <field name="nov"/>
+                                <field name="dec"/>
+                                <field name="jan"/>
+                                <field name="fev"/>
+                                <field name="mars"/>
+                                <field name="avr"/>
+                                <field name="mai"/>
+                                <field name="juin"/>
+                                <field name="juil"/>
+                                <field name="aout"/>
+                            </tree>
+                        </field>
+                        <h3 class="o_horizontal_separator">Tables de besoin en eau</h3>
+                        <field name="dynm_precalcul_lines" mode="tree">
+                            <tree editable="top" create="false" delete="false">
+                                <field name="amh_culture_id" readonly="1"/>
+                                <field name="attribut" readonly="1"/>
+                                <field name="sept"/>
+                                <field name="oct"/>
+                                <field name="nov"/>
+                                <field name="dec"/>
+                                <field name="jan"/>
+                                <field name="fev"/>
+                                <field name="mars"/>
+                                <field name="avr"/>
+                                <field name="mai"/>
+                                <field name="juin"/>
+                                <field name="juil"/>
+                                <field name="aout"/>
+                                <field name="total" attrs="{'invisible':[('attribut','!=','be')]}"/>
+                            </tree>
+                        </field>
+                        <group col="3">
+                            <field name="resource_eau_dispo"/>
+                            <label string="m3/h"/>
+                        </group>
+                        <field name="dynm_precalcul_down2_lines" mode="tree">
+                            <tree editable="top" create="false" delete="false">
+                                <field name="attribut" readonly="1"/>
+                                <field name="sept"/>
+                                <field name="oct"/>
+                                <field name="nov"/>
+                                <field name="dec"/>
+                                <field name="jan"/>
+                                <field name="fev"/>
+                                <field name="mars"/>
+                                <field name="avr"/>
+                                <field name="mai"/>
+                                <field name="juin"/>
+                                <field name="juil"/>
+                                <field name="aout"/>
+                                <field name="total" attrs="{'invisible':[('attribut','not in',['vold','btc','bilanrbb'])]}"
+                                       class="font-weight-bold"/>
+                            </tree>
+                        </field>
+
+                    </page>
+                    <page string="Synthèse" attrs="{'invisible': [('nb_cultures_irg','=',0)]}">
+                        <div class="row" style="margin:7px;">
+                            <div class="col-xs-3">
+                                <button style="background-color:salmon; width:95%;" name="generate_synthese"
+                                        type="object" string="Générer"/>
+                            </div>
+                            <div class="col-xs-3">
+                                &#160;
+                            </div>
+                            <div class="col-xs-3">
+                                &#160;
+                            </div>
+                            <div class="col-xs-3">
+                                &#160;
+                            </div>
+                        </div>
+
+                        <field name="sytheses_prj" mode="tree" context="{'default_project_id': active_id,}">
+
+                            <tree string="Synthese" create="false" delete="false">
+                                <field name="name" readonly="1"/>
+                            </tree>
+                            <form create="false" string="Synthese">
+                                <sheet>
+                                    <div class="row" style="margin:7px;">
+                                        <div class="col-xs-3">
+                                            <button style="background-color:lightgreen; width:95%;" name="dummy"
+                                                    type="object" string="Actualiser" invisible="1"/>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            &#160;
+                                        </div>
+                                        <div class="col-xs-3">
+                                            &#160;
+                                        </div>
+                                        <div class="col-xs-3">
+                                            &#160;
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger"
+                                         attrs="{'invisible': ['|',('message_error','=',False),('choosen_pvc','=',False)]}">
+                                        <field name="message_error"/>
+                                    </div>
+                                    <group>
+                                        <field name="name" invisible="1"/>
+                                        <field name="project_id" invisible="1"/>
+                                        <field name="culture_irg"
+                                               domain="[('project_id','=',parent.id)]" readonly="1"/>
+                                        <field name="culture" invisible="1"/>
+                                        <field name="superficie_eqp"/>
+                                        <field name="density_str"/>
+                                        <field name="type_goutteur" invisible="1"/>
+                                        <field name="goutteur_id" domain="[('type_article','!=',False)]"/>
+                                        <field name="q_goutteur"/>
+                                        <field name="press_gtr_dist"/>
+                                        <field name="coeiff_xk" digits="(14, 3)"/>
+                                        <field name="date_validity"/>
+                                        <field name="ecart_gtrs_cal"/>
+                                        <field name="nombre_dist_arb"/>
+                                        <field name="nombre_dist_arb_cal"/>
+                                        <field name="ecart_ligne"/>
+                                        <field name="ecart_plant"/>
+                                        <field name="nb_ramp_line"/>
+                                        <field name="super_goutteur"/>
+                                        <field name="q_tot_parcelle"/>
+                                    </group>
+                                    <group invisible="1">
+                                        <field name="choosen_pvc" domain="[('type_article','=','pvc')]"/>
+                                    </group>
+                                    <!--group attrs="{'invisible':[('choosen_pvc','=',False)]}"-->
+                                    <group invisible="1">
+                                        <field name="q_sec_theo" attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                        <field name="nb_sec_theo" attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                        <field name="nb_sec_reel" attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                        <field name="q_sec_reel" attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                        <field name="surface_secteur"
+                                               attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                        <field name="nb_post_secteur"
+                                               attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                        <field name="nb_van_tot" attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                        <field name="q_post" attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                        <field name="surface_post" attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                        <field name="pf_qg_sg" attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                        <field name="duree_irg_sec_jr"
+                                               attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                        <field name="duree_tot_irg" attrs="{'invisible':[('choosen_pvc','=',False)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="eto_val"/>
+                                        <field name="kc_val"/>
+                                        <field name="kr_val"/>
+                                        <field name="ea_val"/>
+                                        <field name="bbmmj_val"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_project_kanban_amh" model="ir.ui.view">
+            <field name="name">project.project.kanban.view.amh</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="default_group_by">state</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="state"
+                           options="{'group_by_tooltip': {'description': 'State Description', 'legend_priority': 'Use of stars'}}"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <!--record id="project.open_view_project_all" model="ir.actions.act_window">
+            <field name="name">Projects</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="search_view_id" ref="project.view_project_project_filter"/>
+            <field name="context">{'group_by': 'state'}</field>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new project.
+                    <br/>
+                    <i>Or <a type="action" name="%(project.activate_sample_project)d">activate a sample project</a> to
+                        play with.
+                    </i>
+                </p>
+            </field>
+        </record-->
+
+        <record id="amh_culture_irriguer_form" model="ir.ui.view">
+            <field name="name">amh.culture.irriguer.form</field>
+            <field name="model">amh.culture.irriguer</field>
+            <field name="arch" type="xml">
+                <form string="Cultures à irriguer">
+                    <sheet>
+                        <group>
+                            <field name="amh_culture_id"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="superficie" digits="(14, 5)"/>
+                            </group>
+                            <group>
+                                <field name="superficie_str"/>
+                            </group>
+                        </group>
+                        <group col="2">
+                            <field name="observation_str" invisible="1"/>
+                            <field name="densite_str" invisible="1"/>
+                            <div>
+                                <strong class="oe_inline">Densité &#160;&#160;&#160;</strong>
+                                <field name="densite_x" class="oe_inline"/>&#160;X&#160;
+                                <field name="densite_y" class="oe_inline"/>&#160;
+                                m
+                            </div>
+                        </group>
+                        <group col="2">
+                            <div class="oe_inline">
+                                <strong class="oe_inline">Observations &#160;&#160;&#160;</strong>
+                                <field name="observation" class="oe_inline"/>&#160;
+                                <field name="observation_unit" class="oe_inline" required="1"/>
+                            </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+          <record id="view_amh_caracts_perm" model="ir.ui.view">
+            <field name="name">amh.caracts.perm.view</field>
+            <field name="model">amh.caracts.perm</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

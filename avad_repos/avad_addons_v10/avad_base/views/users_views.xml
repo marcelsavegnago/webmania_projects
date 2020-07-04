@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="base_view_users_form_inherited" model="ir.ui.view">
+            <field name="name">res.users.form.amh</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Parametres SMS">
+                        <group>
+                            <group>
+                                <field name="recoi_sms"/>
+                                <field name="recoi_sms_som"/>
+                                <field name="recoi_sms_inv"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

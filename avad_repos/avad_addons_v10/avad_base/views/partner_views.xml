@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="base_view_res_partner_filter_inherited" model="ir.ui.view">
+            <field name="name">res.partner.filter.amh</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//filter[@name='filter_my_partners']" position="before">
+                    <field name="cin"/>
+                    <field name="ref2"/>
+                    <field name="mobile"/>
+                    <field name="type_client"/>
+                    <filter string="Patients" name="patients" domain="[('type_client', '=', 'patient')]"/>
+                    <filter string="Médecins" name="medecins" domain="[('type_client', '=', 'medecins')]"/>
+                    <filter string="Patients" name="patients" domain="[('type_client', '=', 'patient')]"/>
+                    <filter string="Institutions" name="institution" domain="[('type_client', '=', 'Institution')]"/>
+                </xpath>
+                <xpath expr="//group/filter[1]" position="before">
+                    <filter name="groupby_typeclient" string="Type client" domain="[]"
+                            context="{'group_by' : 'type_client'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_view_task_partner_info_form_inherited" model="ir.ui.view">
+            <field name="name">res.partner.form.tasks.amh.inherited</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="project.view_task_partner_info_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='task_count']" position="attributes">
+                    <attribute name="string">Interventions</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="base_view_partner_tree_inherited" model="ir.ui.view">
+            <field name="name">res.partner.tree.amh</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="cin"/>
+                    <field name="genre"/>
+                    <field name="ref2"/>
+                    <field name="type_client"/>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="before">
+                    <field name="mobile"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="base_view_partner_form_inherited" model="ir.ui.view">
+            <field name="name">res.partner.form.amh</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath position="inside" expr="//page[@name='sales_purchases']//group[@name='purchase']">
+                    <field name="cost_logistique"/>
+                </xpath>
+                <xpath expr="//div[@class='oe_title']" position="after">
+                    <group>
+                        <group>
+                            <field name="type_client"/>
+                            <field name="ref2" readonly="1"/>
+                            <field name="num_national_medeci"
+                                   attrs="{'invisible':[('type_client','!=','medecins')]}"/>
+                            <field name="specialite" options="{'no_create_edit':true,'no_open':true}"
+                                   attrs="{'required':[('type_client','=','medecins')],'invisible':[('type_client','!=','medecins')]}"/>
+
+                        </group>
+                        <group>
+                            <field name="cin" attrs="{'required':[('type_client','in',['patient'])],'invisible':[('type_client','not in',['patient'])]}"/>
+                            <field name="genre" attrs="{'required':[('type_client','in',['medecins','patient'])], 'invisible':[('type_client','=','institution')]}"/>
+                            <field name="civilite"
+                                   attrs="{'required':[('type_client','=','medecins')],'invisible':[('type_client','!=','medecins')]}"/>
+                            <field name="ddn" attrs="{'invisible':[('type_client','not in',['patient'])]}"/>
+                            <field name="iah_initial" attrs="{'invisible':[('type_client','not in',['patient'])]}"/>
+                            <field name="poids" attrs="{'invisible':[('type_client','not in',['patient'])]}"/>
+                            <field name="taille" attrs="{'invisible':[('type_client','not in',['patient'])]}"/>
+                            <field name="imc" attrs="{'invisible':[('type_client','not in',['patient'])]}"/>
+
+                        </group>
+                    </group>
+                </xpath>
+
+                <xpath expr="//field[@name='mobile']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='lang']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='website']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='category_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_syth_sommeil_template">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="o" t-value="o.with_context({'lang':o.patient_id.lang})"/>
+                <div class="header">
+                    <img src='avad_base/static/imgs/head_syn.PNG' style="width:1005px;height:300px;"/>
+                </div>
+
+                <div class="page">
+                <style>
+                    .text-xsp{
+                    font-size:1.7em;
+                    }
+                    .text-xsp2{
+                    font-size:1.1em;
+                    }
+                    .text-xp{
+                    padding:3px;
+                    background-color:lightblue;
+                    text-weight:bold;
+                    margin-bottom:5px;
+                    margin-top:15px;
+                    }
+                    .libele{
+                    color:#007399;
+                    font-size:1.5em;
+                    }
+                    .row div, .tt45{
+                    font-size:1.5em;
+                    }
+                </style>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                <div style="font-weight:bold;">
+                    <div class="row row-eq-height">
+                        <div class="col-xs-4 libele">Nom:</div>
+                        <div class="col-xs-8">&#160;<span t-field="o.patient_id"/>
+                        </div>
+                        <div class="col-xs-4 libele">Date d'installation:</div>
+                        <div class="col-xs-8">&#160;<span t-field="o.date_intervention"
+                                                          t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy HH:mm&quot;}"/>
+                        </div>
+                        <div class="col-xs-4 libele">Téléphone:</div>
+                        <div class="col-xs-8">&#160;<span t-esc="o.patient_id.mobile"/>&#160;
+                        </div>
+
+                         <div class="col-xs-4 libele">Type d'examen:</div>
+                        <div class="col-xs-8">&#160;<span t-field="o.type_examen_id"/>
+                        </div>
+                        <div class="col-xs-4 libele">Agence:</div>
+                        <div class="col-xs-8">&#160;<span t-field="o.agence_id"/></div>
+
+
+
+                    </div>
+
+                    <!--div class="text-xp row">
+                        <div class="col-xs-6">
+                            <center>
+                                <span class="text-xsp2">
+                                    <u>Appareillage</u>
+                                </span>
+                            </center>
+                        </div>
+                        <div class="col-xs-6">
+                            <center>
+                                <span class="text-xsp2">
+                                    <u>Désappareillage</u>
+                                </span>
+                            </center>
+                        </div>
+                    </div-->
+                    <!--div class="row row-eq-height">
+                        <div class="col-xs-4  libele">Date et heure Appareillage:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.date_intervention"
+                                                          t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy HH:mm&quot;}"/>
+                        </div>
+                        <div class="col-xs-4  libele">Date et heure Désappareillage:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.date_intervention_desappareillage"
+                                                          t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy HH:mm&quot;}"/>
+                        </div>
+
+                        <div class="col-xs-4  libele">Durée Appareillage:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.duree"/>
+                        </div>
+                        <div class="col-xs-4  libele">Durée Désappareillage:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.duree_desappareillage"/>
+                        </div>
+
+                        <div class="col-xs-4  libele">Durée Déplacement Appareillage:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.duree_appareillage_app"/>
+                        </div>
+                        <div class="col-xs-4  libele">Durée Déplacement Désappareillage:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.duree_desappareillage_depla"/>
+                        </div>
+
+                        <div class="col-xs-4  libele">Intervenants Appareillage:</div>
+                        <div class="col-xs-2">&#160;
+                            <t t-foreach="o.intervenant_ids" t-as="intrv">
+                                <span t-esc="intrv.name"/>,
+                            </t>
+                        </div>
+                        <div class="col-xs-4  libele">Intervenants Désappareillage:</div>
+                        <div class="col-xs-2">&#160;
+                            <t t-foreach="o.intervenant_ids_desappareillage" t-as="intrv">
+                                <span t-esc="intrv.name"/>,
+                            </t>
+                        </div>
+
+                        <div class="col-xs-2  libele">Adresse:</div>
+                        <div class="col-xs-4">&#160;<span t-field="o.adrress"/>
+                        </div>
+                        <div class="col-xs-4  libele">Etat Appareil:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.etat_appariel_desappareillage"/>
+                        </div>
+
+                        <div class="col-xs-2  libele">Véhicule:</div>
+                        <div class="col-xs-4">&#160;<span t-field="o.vehicle_id"/>
+                        </div>
+                        <div class="col-xs-4  libele">Véhicule :</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.vehicle_id_desappareillage"/>
+                        </div>
+
+
+                    </div-->
+                    <div class="text-xp">
+                        <center>
+                            <span class="text-xsp">
+                                <u>&#160;</u>
+                            </span>
+                        </center>
+                    </div>
+                    <div class="row row-eq-height">
+                        <div class="col-xs-4  libele">Médecin prescripteur:</div>
+                        <div class="col-xs-8">&#160;<span t-field="o.medecin_prescripteur_id"/>
+                        </div>
+
+                    </div>
+
+                    <div class="text-xp">
+                        <center>
+                            <span class="text-xsp">
+                                <u>&#160;</u>
+                            </span>
+                        </center>
+                    </div>
+
+                    <div class="row row-eq-height">
+                        <div class="col-xs-4  libele">IAH:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.iah"/>
+                        </div>
+
+                        <div class="col-xs-4  libele">RONCHOPATHIE:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.roncho"/>
+                        </div>
+
+                        <div class="col-xs-4  libele">INDEX DE DESATURATION:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.idx_desat"/>
+                        </div>
+
+                        <div class="col-xs-4  libele">HTA:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.hta"/>
+                        </div>
+
+                        <div class="col-xs-4  libele">INDEX DE MICRO-EVEIL:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.indx_mev"/>
+                        </div>
+                        <div class="col-xs-4  libele">DIABETE:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.diabete"/>
+                        </div>
+
+                        <div class="col-xs-4  libele">IMC:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.imc"/>
+                        </div>
+                        <div class="col-xs-4  libele">INSOMNIE:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.insomnie"/>
+                        </div>
+
+                        <div class="col-xs-4  libele">AGE:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.age"/>
+                        </div>
+                        <div class="col-xs-4  libele">SJSR:</div>
+                        <div class="col-xs-2">&#160;<span t-field="o.sjsr"/>
+                        </div>
+                        
+                        <div class="col-xs-4  libele">ECHELLE EPWORTH:</div>
+                        <div class="col-xs-8">&#160;<span t-field="o.scor_epw"/>
+                        </div>
+                    </div>
+
+
+                    <div class="text-xp">
+                        <center>
+                            <span class="text-xsp">
+                                <u>&#160;</u>
+                            </span>
+                        </center>
+                    </div>
+
+
+                    <div style="position:absolute;top:1360px; page-break-inside: avoid;">
+                        <img src='avad_base/static/imgs/footerG.png' style="width:1070px;height:140px;"/>
+                    </div>
+
+                </div>
+                </div>
+            </t>
+        </template>
+        <report
+                string="Rapport Synthese"
+                id="print_report_sommeil_syth"
+                model="pat.sommeil"
+                report_type="qweb-pdf"
+                name="avad_base.report_syth_sommeil_template"
+                file="avad_base.report_syth_sommeil_template"
+                menu="False"
+                paperformat="avad_base.paperformat_report_ppc"
+        />
+        <!--
+         -->
+    </data>
+</odoo>

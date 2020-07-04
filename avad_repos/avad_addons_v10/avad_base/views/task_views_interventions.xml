@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--kanban class="o_kanban_small_column o_kanban_project_tasks" quick_create="false"-->
+
+        <!--<record id="avad_interventions_tree" model="ir.ui.view">-->
+            <!--<field name="name">product.task.tree.interventions</field>-->
+            <!--<field name="model">project.task</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree create="false" decoration-bf="message_needaction==True"-->
+                      <!--decoration-danger="date_deadline and (date_deadline&lt;current_date)" string="Tasks">-->
+                    <!--<field name="message_needaction" invisible="1"/>-->
+                    <!--<field name="sequence" invisible="not context.get('seq_visible', False)"/>-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="project_id" invisible="context.get('user_invisible', False)"/>-->
+                    <!--<field name="user_id" invisible="context.get('user_invisible', False)"/>-->
+                    <!--<field name="date_deadline" invisible="context.get('deadline_visible',True)"/>-->
+                    <!--<field name="stage_id" invisible="context.get('set_visible',False)"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="avad_interventions_calendar" model="ir.ui.view">-->
+            <!--<field name="name">product.task.calendar.interventions</field>-->
+            <!--<field name="model">project.task</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<calendar  quick_add="false" create='false' color="user_id" date_start="date_deadline" string="Tasks" mode="month">-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="project_id"/>-->
+                <!--</calendar>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="avad_interventions_kanban" model="ir.ui.view">-->
+            <!--<field name="name">product.task.kanban.interventions</field>-->
+            <!--<field name="model">project.task</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<kanban class="o_kanban_small_column o_kanban_project_tasks" quick_create="false" create="false">-->
+                    <!--<field name="color"/>-->
+                    <!--<field name="priority"/>-->
+                    <!--<field name="stage_id"-->
+                           <!--options="{&quot;group_by_tooltip&quot;: {&quot;description&quot;: &quot;Stage Description&quot;, &quot;legend_priority&quot;: &quot;Use of stars&quot;}}"/>-->
+                    <!--<field name="user_id"/>-->
+                    <!--<field name="user_email"/>-->
+                    <!--<field name="description"/>-->
+                    <!--<field name="sequence"/>-->
+                    <!--<field name="remaining_hours" groups="project.group_time_work_estimation_tasks"/>-->
+                    <!--<field name="date_deadline"/>-->
+                    <!--<field name="message_needaction_counter"/>-->
+                    <!--<field name="tag_ids"/>-->
+                    <!--<field name="attachment_ids"/>-->
+                    <!--<field name="displayed_image_id"/>-->
+                    <!--<field name="active"/>-->
+                    <!--<field name="legend_blocked"/>-->
+                    <!--<field name="legend_normal"/>-->
+                    <!--<field name="legend_done"/>-->
+                    <!--<templates>-->
+                        <!--<t t-name="kanban-box">-->
+                            <!--<div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">-->
+
+                                <!--<div class="o_dropdown_kanban dropdown" groups="base.group_user">-->
+                                    <!--<a class="dropdown-toggle btn" data-toggle="dropdown" href="#">-->
+                                        <!--<span class="fa fa-bars fa-lg"/>-->
+                                    <!--</a>-->
+                                    <!--<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">-->
+                                        <!--<t t-if="widget.editable">-->
+                                            <!--<li>-->
+                                                <!--<a type="set_cover">Set Cover Image</a>-->
+                                            <!--</li>-->
+                                        <!--</t>-->
+                                        <!--<t t-if="widget.editable">-->
+                                            <!--<li>-->
+                                                <!--<a type="edit">Edit Task</a>-->
+                                            <!--</li>-->
+                                        <!--</t>-->
+                                        <!--<t t-if="widget.deletable">-->
+                                            <!--<li>-->
+                                                <!--<a type="delete">Delete</a>-->
+                                            <!--</li>-->
+                                        <!--</t>-->
+                                        <!--<li>-->
+                                            <!--<ul class="oe_kanban_colorpicker" data-field="color"/>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                                <!--<div class="oe_kanban_content">-->
+                                    <!--<div>-->
+                                        <!--<field name="tag_ids"/>-->
+                                    <!--</div>-->
+                                    <!--<div>-->
+                                        <!--<strong>-->
+                                            <!--<field name="name"/>-->
+                                        <!--</strong>-->
+                                    <!--</div>-->
+                                    <!--<div class="text-muted">-->
+                                        <!--<field name="project_id" invisible="context.get('default_project_id', False)"/>-->
+                                        <!--<t t-if="record.date_deadline.raw_value and record.date_deadline.raw_value lt (new Date())"-->
+                                           <!--t-set="red">oe_kanban_text_red-->
+                                        <!--</t>-->
+                                        <!--<span t-attf-class="#{red || ''}">-->
+                                            <!--<i>-->
+                                                <!--<field name="date_deadline"/>-->
+                                            <!--</i>-->
+                                        <!--</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="oe_kanban_bottom_left">-->
+                                        <!--<field name="priority" widget="priority"/>-->
+                                        <!--<t t-if="record.message_needaction_counter.raw_value">-->
+                                            <!--<span class="oe_kanban_mail_new" title="Unread Messages">-->
+                                                <!--<i class="fa fa-comments"/>-->
+                                                <!--<t t-raw="record.message_needaction_counter.raw_value"/>-->
+                                            <!--</span>-->
+                                        <!--</t>-->
+                                    <!--</div>-->
+                                    <!--<div class="oe_kanban_bottom_right">-->
+                                        <!--<img t-att-src="kanban_image('res.users', 'image_small', record.user_id.raw_value)"-->
+                                             <!--t-att-title="record.user_id.value" width="24" height="24"-->
+                                             <!--class="oe_kanban_avatar pull-right"/>-->
+                                        <!--<div class="pull-left" groups="base.group_user">-->
+                                            <!--<field name="kanban_state" widget="kanban_state_selection"/>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div t-if="record.displayed_image_id.value">-->
+                                    <!--<field name="displayed_image_id" widget="attachment_image"/>-->
+                                <!--</div>-->
+                                <!--<div class="oe_clear"/>-->
+                            <!--</div>-->
+                        <!--</t>-->
+                    <!--</templates>-->
+                <!--</kanban>-->
+
+            <!--</field>-->
+        <!--</record>-->
+
+
+        <record id="act_project_project_2_project_task_interventions" model="ir.actions.act_window">
+            <field name="name">Interventions</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">calendar,kanban,tree,form</field>
+            <field name="context">{
+                'group_by': 'stage_id',
+                }
+            </field>
+            <!--<field name="view_id" ref="avad_interventions_calendar"/>-->
+            <field name="search_view_id" ref="project.view_task_search_form"/>
+            <!--<field name="view_ids" eval="[(5, 0, 0),-->
+                <!--(0, 0, {'view_mode': 'calendar', 'view_id': ref('avad_interventions_calendar')}),-->
+                <!--(0, 0, {'view_mode': 'kanban', 'view_id': ref('avad_interventions_kanban')}),-->
+                <!--(0, 0, {'view_mode': 'tree', 'view_id': ref('avad_interventions_tree')})-->
+                <!--]"/>-->
+
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer afin de creer une interventions.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

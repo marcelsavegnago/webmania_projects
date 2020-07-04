@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_create_region" model="ir.actions.act_window">
+            <field name="name">Régions</field>
+            <field name="res_model">amh.region</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clique sur créer pour ajouter une nouvelle région.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_create_culture" model="ir.actions.act_window">
+            <field name="name">Cultures</field>
+            <field name="res_model">amh.culture</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clique sur créer pour ajouter une nouvelle culture.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_cpuits_type" model="ir.actions.act_window">
+            <field name="name">Type Puits</field>
+            <field name="res_model">amh.puits.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clique sur créer pour ajouter un type de puits.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Agriculture"
+                  id="agric_menu_root"
+                  groups="group_agric_manager"
+                  web_icon="agricul_core,static/description/agric.png"
+                  sequence="1"/>
+        <menuitem name="Configuration" parent="agric_menu_root" id="agric_config_menu"/>
+        <menuitem name="Régions" id="agric_menu_regions" parent="agric_config_menu" action="action_create_region"/>
+        <menuitem name="Cultures" id="agric_menu_cultures" parent="agric_config_menu" action="action_create_culture"/>
+        <menuitem name="Type puits" id="agric_menu_type_puits" parent="agric_config_menu" action="action_cpuits_type" groups="group_type_puit_manager"/>
+
+
+    </data>
+</odoo>

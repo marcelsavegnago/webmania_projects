@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="type_examen_tree" model="ir.ui.view">
+            <field name="name">pat.type.examen.tree.amh</field>
+            <field name="model">pat.type.examen</field>
+            <field name="arch" type="xml">
+                <tree string="Type examen">
+                    <field name="name"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="type_examen_form" model="ir.ui.view">
+            <field name="name">pat.type.examen.form.amh</field>
+            <field name="model">pat.type.examen</field>
+            <field name="arch" type="xml">
+                <form string="Forfaits">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sommeil_type_examen_action" model="ir.actions.act_window">
+            <field name="name">Type examen sommeil</field>
+            <field name="res_model">pat.type.examen</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer afin de créer un type d'examen.
+                </p>
+            </field>
+        </record>
+
+        <record id="sommeil_piece_jointe_action" model="ir.actions.act_window">
+            <field name="name">Piece jointe sommeil</field>
+            <field name="res_model">sommeil.piece.jointe</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer afin de créer un sommeil piece jointe.
+                </p>
+            </field>
+        </record>
+
+
+        <record id="sommeil_forme_rapport_action" model="ir.actions.act_window">
+            <field name="name">Sommeil forme rapport</field>
+            <field name="res_model">sommeil.forme.rapport</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer afin de créer un type d'examen.
+                </p>
+            </field>
+        </record>
+
+        <record id="sommeil_pat_canal_action" model="ir.actions.act_window">
+            <field name="name">Canal</field>
+            <field name="res_model">pat.canal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer afin de créer un nouveau document.
+                </p>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="pat_sommeil_view_tree">
+            <field name="name">Sommeil Tree</field>
+            <field name="model">pat.sommeil</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Sommeil">
+                    <field name="name"/>
+                    <field name="date_creation"/>
+
+                    <field name="agence_id"/>
+                    <field name="type_examen_id"/>
+
+                    <field name="channel_id"/>
+                    <field name="patient_id" context="{'default_type_client':'patient', 'type_client':'patient'}"/>
+                    <field name="medecin_prescripteur_id" context="{'default_type_client':'medecins', 'type_client':'medecins'}"/>
+
+                    <field name="daterdv"/>
+                    <field name="date_intervention"/>
+
+                    <field name="adrress"/>
+
+
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_pat_sommeil_filter" model="ir.ui.view">
+            <field name="name">pat.sommeil.select</field>
+            <field name="model">pat.sommeil</field>
+            <field name="arch" type="xml">
+                <search string="Search Pat sommeil">
+
+                    <field name="name"/>
+
+                    <field name="date_creation"/>
+                    <field name="agence_id"/>
+                    <field name="type_examen_id"/>
+
+                    <field name="channel_id"/>
+                    <field name="patient_id"/>
+                    <field name="medecin_prescripteur_id"/>
+                    <field name="date_intervention"/>
+
+
+                    <field name="adrress"/>
+
+                    <filter icon="terp-go-today" string="Aujourd'hui" name="aujourdhui"
+                            domain="[('daterdv','=', time.strftime('%%Y-%%m-%%d'))]"/>
+
+
+                    <field name="state"/>
+
+
+                    <group expand="0" string="Group By...">
+
+
+                        <filter string="Agence" icon="terp-personal" domain="[]" context="{'group_by':'agence_id'}"/>
+                        <filter string="Patient" icon="terp-personal" domain="[]" context="{'group_by':'patient_id'}"/>
+
+                        <filter string="Medecin Prescripteur" icon="terp-personal" domain="[]"
+                                context="{'group_by':'medecin_prescripteur_id'}"/>
+
+                        <filter string="Type Examen" icon="terp-personal" domain="[]"
+                                context="{'group_by':'type_examen_id'}"/>
+
+                        <filter string="Date de Création" icon="terp-personal" domain="[]"
+                                context="{'group_by':'date_creation'}"/>
+
+
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'state'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="sale_order_action_kanban_sommeil" model="ir.actions.act_window">
+            <field name="name">Devis/Bon commandes</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_our_sommeil_id': active_id, 'search_our_sommeil_id':active_id}</field>
+            <field name="domain">[('our_sommeil_id','=', active_id)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer afin de créer un devis/bon de commande associé à cette sommeil.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="pat_sommeil_form_view">
+            <field name="name">Sommeil</field>
+            <field name="model">pat.sommeil</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <form string="PAT" version="7.0">
+                    <header>
+                        <button name="demmarer" class="oe_highlight" string="Démmarer" type="object" invisible="1"/>
+                        <button name="%(cancel_sommeil_action)d" type="action" string="Annuler"
+                                states="open,encours,programme,desappareillage"/>
+
+                        <button name="action_appareiller" states="encours" string="Appareiller"
+                                type="object" class="oe_highlight"/>
+
+
+                        <button name="action_desappareillage" states="programme"
+                                string="Désappareiller" type="object" class="oe_highlight"/>
+
+
+                        <button name="action_termine" states="desappareillage" string="Terminer"
+                                type="object" class="oe_highlight"/>
+                        <button name="%(print_report_sommeil_syth)d" states="termine,facture" string="Imprimer"
+                                type="action" class="oe_highlight"/>
+                        <button name="send_sms_synthese" states="termine,facture" string="Send SMS"
+                                type="object" class="oe_highlight"/>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="open,encours,programme,desappareillage,termine,facture"/>
+
+                    </header>
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="%(sale_order_action_kanban_sommeil)d" type="action"
+                                    icon="fa-th-large">
+                                <field string="Devis/Bon commandes" name="sale_orders_count" widget="statinfo"
+                                       context="{'default_partner_id':patient_id}"/>
+                            </button>
+                        </div>
+
+                        <h1>
+                            <label string="Référence "/>
+
+                            <field name="name" class="oe_inline" readonly="1"/>
+                        </h1>
+
+                        <field name="sms_send" invisible="1"/>
+                        <div class="alert alert-success" attrs="{'invisible':[('sms_send','=',False)]}">
+                            SMS envoyé
+                        </div>
+
+
+                        <group>
+                            <group string="Demande">
+
+
+                                <field name="agence_id" widget="selection" required="1"/>
+
+                                <field name="channel_id" widget="selection" required="1"/>
+                                <field name="type_examen_id" widget="selection" required="1"/>
+
+
+                                <field name="priority" required="1"/>
+
+                                <field name="gateway" invisible="1"/>
+
+
+                            </group>
+
+                            <group string="Patient">
+
+
+                                <field name="patient_id"
+                                       required="1" context="{'default_type_client':'patient', 'type_client':'patient'}"/>
+
+
+                                <field name="medecin_prescripteur_id" required="1"
+                                       context="{'default_type_client':'medecins'}"/>
+                                <field name="specialite_med" readonly="1"/>
+
+                                <field name="phone"/>
+                                <field name="fax" invisible="1"/>
+                                <field name="mobile"/>
+                                <field name="street"/>
+                                <field name="description" placeholder="Plus d'informations ..."/>
+
+
+                            </group>
+
+
+                        </group>
+                        <group attrs="{'invisible':[('state','!=','annule')]}">
+                            <group>
+                                <field name="motif"/>
+                            </group>
+                        </group>
+
+                        <group>
+
+
+                            <field name="state2" nolabel="1" widget="statusbar"
+                                   statusbar_visible="pod,intervention,rapport"/>
+
+                        </group>
+
+                        <notebook>
+
+                            <page string="Prise de RDV">
+
+
+                                <field name="rdv_ids">
+
+
+                                    <form string="Prise de RDV">
+                                        <group>
+                                            <group>
+                                                <field name="name2"/>
+                                                <field name="name" invisible="1"/>
+                                                <field name="demandeur"/>
+                                                <field name="date"/>
+
+                                            </group>
+                                            <group>
+
+                                                <field name="state"/>
+                                                <field name="state2"/>
+                                                <field name="motif"/>
+
+                                            </group>
+
+                                        </group>
+
+
+                                    </form>
+
+                                    <tree string="Prise de RDV " editable="bottom">
+                                        <field name="name2"/>
+                                        <field name="name" invisible="1"/>
+
+                                        <field name="date"/>
+                                        <field name="demandeur"/>
+                                        <field name="state"/>
+                                        <field name="state2"/>
+                                        <field name="motif"/>
+                                        <field name="recherche" invisible="1"/>
+
+                                    </tree>
+
+
+                                </field>
+                                <group>
+                                    <group>
+                                        <field name="daterdv" invisible="1"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Préparation">
+
+                                <group>
+                                    <group string="Appareil/consommables">
+
+                                        <div>Articles disponible</div>
+
+                                    </group>
+
+                                    <group>
+
+                                        <field name="responsable_id" widget="selection"/>
+                                        <field name="etat_appariel"/>
+
+
+                                    </group>
+
+                                </group>
+
+                            </page>
+
+
+                            <page string="Intervention">
+
+
+                                <group>
+
+                                    <group string="Appareillage">
+
+                                        <field name="date_intervention"/>
+                                        <field name="duree"/>
+                                        <field name="duree_appareillage_app"/>
+                                        <field name="intervenant_ids" widget="many2many_tags"/>
+
+                                        <field name="adrress" placeholder="Rue/N°/Ville..."/>
+                                        <field name="vehicle_id"/>
+
+                                    </group>
+
+                                    <group string="Désappareillage">
+
+
+                                        <field name="date_intervention_desappareillage"/>
+                                        <field name="duree_desappareillage"/>
+                                        <field name="duree_desappareillage_depla"/>
+                                        <field name="intervenant_ids_desappareillage" widget="many2many_tags"/>
+
+                                        <field name="etat_appariel_desappareillage"/>
+                                        <field name="vehicle_id_desappareillage"/>
+
+
+                                    </group>
+
+
+                                </group>
+
+                            </page>
+
+                            <page string="Règlements">
+
+                                <group>
+
+                                    <group>
+
+                                        <field name="montant_total"/>
+                                        <field name="part_avad"/>
+                                        <field name="avance_avad"/>
+                                        <field name="part_medecin"/>
+                                        <field name="avance_medecin"/>
+                                        <field name="montant_facturer"/>
+                                    </group>
+
+
+                                    <group>
+
+
+                                        <field name="facture"/>
+                                        <field name="mode_paiement"/>
+                                        <field name="remarques_facturation" placeholder="Remarques..."/>
+                                        <field name="invoice_id" readonly="1"/>
+
+
+                                    </group>
+
+
+                                </group>
+
+
+                            </page>
+
+
+                            <page string="Rapport">
+
+
+                                <group>
+
+                                    <group string="Dates">
+
+                                        <field name="date_rapport_enregistrement"/>
+                                        <field name="date_rapport_envoi"/>
+                                        <field name="date_rapport_reception"/>
+                                        <field name="delai_max"/>
+
+
+                                    </group>
+
+                                    <group string="Responsables">
+
+
+                                        <field name="enregistrement_id"/>
+                                        <field name="envoi_id"/>
+                                        <field name="recu_par"/>
+
+                                    </group>
+
+
+                                </group>
+
+                                <group>
+
+                                    <field name="piece_jointe_ids" widget="many2many_tags"/>
+                                    <field name="forme_envoi_ids" widget="many2many_tags"/>
+
+                                </group>
+
+
+                            </page>
+
+
+                            <page string="suivis">
+
+
+                                <group>
+
+                                    <group>
+
+                                        <field name="iah"/>
+                                        <field name="idx_desat"/>
+                                        <field name="indx_mev"/>
+                                        <field name="imc"/>
+                                        <field name="age"/>
+                                        <field name="scor_epw"/>
+                                        <field name="duree_passe_90_satur"/>
+                                        <field name="conclu_suiv_someil"/>
+
+
+                                    </group>
+
+                                    <group>
+                                        <field name="iah_dorsale"/>
+                                        <field name="roncho"/>
+                                        <field name="hta"/>
+                                        <field name="diabete"/>
+                                        <field name="insomnie"/>
+                                        <field name="sjsr"/>
+
+                                    </group>
+
+
+                                </group>
+
+
+                            </page>
+
+
+                        </notebook>
+
+
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+
+            </field>
+        </record>
+
+
+        <record id="view_pat_sommeil_calendar" model="ir.ui.view">
+            <field name="name">pat.sommeil.calendar</field>
+            <field name="model">pat.sommeil</field>
+            <field name="arch" type="xml">
+                <calendar string="Interventions" color="type_examen_id" date_start="date_intervention">
+
+                    <field name="type_examen_id"/>
+                    <field name="patient_id"/>
+                    <field name="medecin_prescripteur_id"/>
+                    <field name="phone"/>
+                    <field name="name"/>
+
+                </calendar>
+            </field>
+        </record>
+
+
+        <!-- RDV -->
+
+        <record id="sommeil_rdv_form_view" model="ir.ui.view">
+            <field name="name">sommeil.rdv.form</field>
+            <field name="model">sommeil.rdv</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <from string="Prise de RDV" version="7.0">
+
+
+                    <group>
+                        <group>
+                            <field name="sommeil_id"/>
+                            <field name="name" invisible="1"/>
+                            <field name="demandeur"/>
+                            <field name="date"/>
+                            <field name="agence_id"/>
+
+                        </group>
+                        <group>
+
+
+                            <field name="state"/>
+                            <field name="motif"/>
+
+                        </group>
+
+                    </group>
+
+
+                </from>
+
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_sommeil_rdv_tree">
+            <field name="name">sommeil.rdv.tree</field>
+            <field name="model">sommeil.rdv</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Prise de RDV ">
+                    <field name="sommeil_id"/>
+                    <field name="agence_id"/>
+                    <field name="name" invisible="1"/>
+                    <field name="patient_id"/>
+                    <field name="medecin_prescripteur_id"/>
+                    <field name="date"/>
+                    <field name="demandeur"/>
+                    <field name="state"/>
+                    <field name="state2"/>
+                    <field name="motif"/>
+
+
+                    <field name="nb_rdv" invisible="1"/>
+                    <field name="seq_rdv" invisible="1"/>
+                    <field name="name2"/>
+                    <field name="state"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_sommeil_rdv_calendar" model="ir.ui.view">
+            <field name="name">sommeil.rdv.calendar</field>
+            <field name="model">sommeil.rdv</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="state" date_start="date" string="RDV">
+                    <field name="name2"/>
+                    <field name="patient_id"/>
+                    <field name="phone"/>
+                    <field name="medecin_prescripteur_id"/>
+
+                    <field name="sommeil_id"/>
+                </calendar>
+            </field>
+        </record>
+
+
+        <record id="view_sommeil_rdv_calendar_agence" model="ir.ui.view">
+            <field name="name">sommeil.rdv.calendar</field>
+            <field name="model">sommeil.rdv</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="agence_id" date_start="date" string="RDV">
+                    <field name="name2"/>
+                    <field name="patient_id"/>
+                    <field name="phone"/>
+                    <field name="medecin_prescripteur_id"/>
+                    <field name="sommeil_id"/>
+                </calendar>
+            </field>
+        </record>
+
+
+        <record id="view_rdv_sommeil_filter" model="ir.ui.view">
+            <field name="name">sommeil.rdv.select</field>
+            <field name="model">sommeil.rdv</field>
+            <field name="arch" type="xml">
+                <search string="Search Pat sommeil">
+
+                    <field name="sommeil_id"/>
+                    <field name="name" invisible="1"/>
+
+                    <field name="date"/>
+                    <field name="patient_id"/>
+                    <field name="state"/>
+                    <field name="state2"/>
+                    <field name="motif"/>
+
+                    <field name="name2"/>
+                    <field name="state"/>
+
+                    <filter icon="terp-go-today" string="Aujourd'hui" name="aujourdhui"
+                            domain="[('date','=', time.strftime('%%Y-%%m-%%d'))]"/>
+
+
+                    <field name="state"/>
+
+
+                    <group expand="0" string="Group By...">
+
+
+                        <filter string="Patient" icon="terp-personal" domain="[]" context="{'group_by':'patient_id'}"/>
+
+                        <filter string="Date" icon="terp-personal" domain="[]" context="{'group_by':'date'}"/>
+
+
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'state'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="view_sommeil_rdv_calendar2" model="ir.ui.view">
+            <field name="name">sommeil.rdv.calendar</field>
+            <field name="model">sommeil.rdv</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+
+                <calendar color="type_examen_id" date_start="date" string="RDV">
+                    <field name="name2"/>
+                    <field name="patient_id"/>
+                    <field name="phone"/>
+                    <field name="medecin_prescripteur_id"/>
+
+                    <field name="sommeil_id"/>
+                </calendar>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_sommeil_rdv_tree2">
+            <field name="name">RDV</field>
+            <field name="res_model">sommeil.rdv</field>
+            <field name="domain">[('state', '=', 'valide')]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,tree,form</field>
+        </record>
+
+        <record id="action_view_sommeil_rdv_calendar2" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="view_sommeil_rdv_calendar2"/>
+            <field name="act_window_id" ref="action_sommeil_rdv_tree2"/>
+        </record>
+        <record id="action_view_sommeil_rdv_tree2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_sommeil_rdv_tree"/>
+            <field name="act_window_id" ref="action_sommeil_rdv_tree2"/>
+        </record>
+        <record id="action_sommeil_rdv_form_view2" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sommeil_rdv_form_view"/>
+            <field name="act_window_id" ref="action_sommeil_rdv_tree2"/>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_sommeil_rdv_tree2_agence">
+            <field name="name">RDV</field>
+            <field name="res_model">sommeil.rdv</field>
+            <field name="domain">[('state', '=', 'valide')]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,tree,form</field>
+        </record>
+
+        <record id="action_view_sommeil_rdv_calendar_agence" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="view_sommeil_rdv_calendar_agence"/>
+            <field name="act_window_id" ref="action_sommeil_rdv_tree2_agence"/>
+        </record>
+
+        <record id="action_view_sommeil_rdv_tree2_agence" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_sommeil_rdv_tree"/>
+            <field name="act_window_id" ref="action_sommeil_rdv_tree2_agence"/>
+        </record>
+        <record id="action_sommeil_rdv_form_view2_agence" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sommeil_rdv_form_view"/>
+            <field name="act_window_id" ref="action_sommeil_rdv_tree2_agence"/>
+        </record>
+
+
+        <!-- Pnaning -->
+
+
+        <record id="sommeil_planning_form_view2" model="ir.ui.view">
+            <field name="name">sommeil.planning2.form</field>
+            <field name="model">sommeil.planning2</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <from string="planning" version="7.0">
+                    <header>
+
+                        <button name="action_encours" states="ouvert" string="Valider"
+                                type="object"/>
+                        <button name="action_annule" states="ouvert" string="Annuler"
+                                type="object"/>
+                        <button name="send_sms_sommeil_planning" states="valide" string="Envoyer SMS"
+                                type="object" class="oe_highlight"/>
+
+
+                        <field name="state" widget="statusbar" statusbar_visible="ouvert,valide"/>
+
+                    </header>
+                    <sheet>
+                        <field name="sms_send" invisible="1"/>
+                        <div class="alert alert-success" attrs="{'invisible':[('sms_send','=',False)]}">
+                            SMS envoyé
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="date"/>
+                            </group>
+                            <group>
+                                <field name="user_id"/>
+
+
+                            </group>
+
+                        </group>
+
+                        <notebook>
+
+                            <page string="Prise de RDV">
+                                <field name="rdv_ids" nolabel="1"
+                                       domain="[('planning_id','=',False),('state','=','valide')]">
+
+
+                                    <tree string="Prise de RDV ">
+                                        <field name="sommeil_id"/>
+                                        <field name="date"/>
+                                        <field name="name2"/>
+                                        <field name="patient_id"/>
+                                        <field name="medecin_prescripteur_id"/>
+                                        <field name="name" invisible="1"/>
+                                        <field name="phone"/>
+                                        <field name="type_examen_id"/>
+                                        <field name="demandeur"/>
+                                        <field name="state"/>
+                                        <field name="state2"/>
+                                        <field name="motif"/>
+                                        <field name="recherche" invisible="1"/>
+                                        <field name="planning_id"/>
+
+                                    </tree>
+
+
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </from>
+
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_planning_rdv_tree2">
+            <field name="name">sommeil.planning2.tree</field>
+            <field name="model">sommeil.planning2</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Planning ">
+                    <field name="name" required="1"/>
+                    <field name="date"/>
+                    <field name="user_id"/>
+
+
+                </tree>
+            </field>
+        </record>
+
+        <!-- reclammations -->
+
+        <record id="sommeil_reclamation_view" model="ir.ui.view">
+            <field name="name">sommeil.reclamation.form</field>
+            <field name="model">sommeil.reclamation</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <from string="Reclamation" version="7.0">
+
+
+                    <group>
+                        <group>
+                            <field name="name"/>
+
+                            <field name="users_id" readonly="1"/>
+                            <field name="date" readonly="1"/>
+
+                            <field name="state" readonly="1"/>
+
+                        </group>
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="medecin_prescripteur_id"/>
+                            <field name="agence_id"/>
+
+
+                        </group>
+                        <group colspan="4">
+                            <field name="description"/>
+                        </group>
+
+                    </group>
+
+
+                </from>
+
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="pat_sommeil_view_livrable_tree">
+            <field name="name">Sommeil Tree</field>
+            <field name="model">pat.sommeil</field>
+            <field eval="4" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Sommeil Livrable">
+                    <field name="name"/>
+                    <field name="agence_id" required="1"/>
+                    <field name="channel_id" required="1"/>
+                    <field name="type_examen_id" required="1"/>
+                    <!--field name="nsr"/-->
+                    <field name="priority" required="1"/>
+                    <field name="patient_id"/>
+                    <field name="medecin_prescripteur_id"/>
+                    <field name="specialite_med"/>
+                    <field name="phone"/>
+                    <field name="fax" invisible="1"/>
+                    <field name="mobile"/>
+                    <field name="street"/>
+                    <field name="description"/>
+                    <field name="state2"/>
+                    <field name="state"/>
+                    <field name="date_intervention"/>
+                    <field name="duree"/>
+                    <field name="duree_appareillage_app"/>
+                    <field name="intervenant_ids" widget="many2many_tags"/>
+                    <field name="date_intervention_desappareillage"/>
+                    <field name="duree_desappareillage"/>
+                    <field name="duree_desappareillage_depla"/>
+                    <field name="intervenant_ids_desappareillage" widget="many2many_tags"/>
+                    <field name="etat_appariel_desappareillage"/>
+                    <field name="montant_total"/>
+                    <field name="part_avad"/>
+                    <field name="part_medecin"/>
+                    <field name="mode_paiement"/>
+                    <field name="remarques_facturation" placeholder="Remarques..."/>
+                    <field name="date_rapport_enregistrement"/>
+                    <field name="date_rapport_envoi"/>
+                    <field name="date_rapport_reception"/>
+                    <field name="enregistrement_id"/>
+                    <field name="envoi_id"/>
+                    <field name="recu_par"/>
+                    <field name="iah"/>
+                    <field name="idx_desat"/>
+                    <field name="indx_mev"/>
+                    <field name="imc"/>
+                    <field name="age"/>
+                    <field name="scor_epw"/>
+                    <field name="roncho"/>
+                    <field name="hta"/>
+                    <field name="diabete"/>
+                    <field name="insomnie"/>
+                    <field name="sjsr"/>
+
+
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_sommeil_reclamation_tree">
+            <field name="name">sommeil.reclamation.tree</field>
+            <field name="model">sommeil.reclamation</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Reclamation ">
+
+                    <field name="name"/>
+                    <field name="users_id" readonly="1"/>
+                    <field name="date" readonly="1"/>
+                    <field name="patient_id"/>
+                    <field name="medecin_prescripteur_id"/>
+                    <field name="agence_id"/>
+                    <field name="state" readonly="1"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

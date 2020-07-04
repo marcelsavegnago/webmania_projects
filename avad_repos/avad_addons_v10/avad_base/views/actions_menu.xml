@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="project.action_view_task" model="ir.actions.act_window">
+            <field name="name">Interventions</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+            <field name="context">{'project.search_default_my_tasks': 1}</field>
+            <field name="search_view_id" ref="project.view_task_search_form"/>
+            <field name="help" type="html">
+                <p>
+                    Creer une nouvelle intervention
+                </p>
+            </field>
+        </record>
+
+        <record id="avad_action_partners" model="ir.actions.act_window">
+            <field name="name">Partenaires</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clique sur créer pour ajouter un partenaire.
+                </p>
+            </field>
+        </record>
+
+        <record id="avad_action_partners_medecin" model="ir.actions.act_window">
+            <field name="name">Médecins</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('type_client','=','medecins')]</field>
+            <field name="context">{'type_client':'medecins', 'default_type_client':'medecins'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clique sur créer pour ajouter un Médecin.
+                </p>
+            </field>
+        </record>
+
+        <record id="avad_action_partners_patient" model="ir.actions.act_window">
+            <field name="name">Patients</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('type_client','=','patient')]</field>
+            <field name="context">{'type_client':'patient', 'default_type_client':'patient'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clique sur créer pour ajouter un patient.
+                </p>
+            </field>
+        </record>
+
+        <record id="avad_action_partners_institution" model="ir.actions.act_window">
+            <field name="name">Institutions</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('type_client','=','institution')]</field>
+            <field name="context">{'type_client':'institution', 'default_type_client':'institution'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clique sur créer pour ajouter institution.
+                </p>
+            </field>
+        </record>
+
+        <record id="avad_action_partners_autre" model="ir.actions.act_window">
+            <field name="name">Autre</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('type_client','=','autre')]</field>
+            <field name="context">{'type_client':'autre', 'default_type_client':'autre'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clique sur créer pour ajouter partnaire de type autre.
+                </p>
+            </field>
+        </record>
+
+        <record id="open_view_project_all_avad" model="ir.actions.act_window">
+            <field name="name">Tous</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="project.view_project_project_filter"/>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer pour créer une demande
+                </p>
+            </field>
+        </record>
+
+
+        <record id="open_view_project_avad_seance" model="ir.actions.act_window">
+            <field name="name">Demandes par seance</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="search_view_id" ref="project.view_project_project_filter"/>
+            <field name="domain">[('demande','=','seance')]</field>
+            <field name="context">{'default_demande': 'seance'}</field>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer pour créer une demande par seance
+                </p>
+            </field>
+        </record>
+
+        <record id="open_view_project_avad_ventes" model="ir.actions.act_window">
+            <field name="name">Demandes ventes</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="search_view_id" ref="project.view_project_project_filter"/>
+            <field name="domain">[('demande','=','vente')]</field>
+            <field name="context">{'default_demande': 'vente'}</field>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer pour créer une demande de vente
+                </p>
+            </field>
+        </record>
+
+        <record id="open_view_project_avad_location" model="ir.actions.act_window">
+            <field name="name">Demandes location</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="search_view_id" ref="project.view_project_project_filter"/>
+            <field name="domain">[('demande','=','location')]</field>
+            <field name="context">{'default_demande': 'location'}</field>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer pour créer une demande de location
+                </p>
+            </field>
+        </record>
+
+        <record id="avad_action_partners_specialite" model="ir.actions.act_window">
+            <field name="name">Spécialité Médecin</field>
+            <field name="res_model">avad.medcin.specialite</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer pour créer une spécialité Médecin.
+                </p>
+            </field>
+        </record>
+
+        <record id="avad_action_forfaits" model="ir.actions.act_window">
+            <field name="name">Forfaits</field>
+            <field name="res_model">product.forfait</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer pour créer un forfait.
+                </p>
+            </field>
+        </record>
+
+
+        <record id="avad_objet_actions" model="ir.actions.act_window">
+            <field name="name">Objets</field>
+            <field name="res_model">objet.suivi</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquer pour créer un objet.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="calendar_sommeil_act">
+            <field name="name">Demnades Sommeils</field>
+            <field name="res_model">pat.sommeil</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="view_id" eval="False"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_sommeillivrable_tree">
+            <field name="name">Livrable Sommeil</field>
+            <field name="res_model">pat.sommeil</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_sommeillivrable_tree2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="pat_sommeil_view_livrable_tree"/>
+            <field name="act_window_id" ref="action_sommeillivrable_tree"/>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="action_sommeil_rdv_tree">
+            <field name="name">RDV</field>
+            <field name="res_model">sommeil.rdv</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,tree,form</field>
+        </record>
+
+        <record id="action_view_sommeil_rdv_calendar" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="view_sommeil_rdv_calendar"/>
+            <field name="act_window_id" ref="action_sommeil_rdv_tree"/>
+        </record>
+
+
+        <record id="action_view_sommeil_rdv_tree" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_sommeil_rdv_tree"/>
+            <field name="act_window_id" ref="action_sommeil_rdv_tree"/>
+        </record>
+        <record id="action_sommeil_rdv_form_view" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sommeil_rdv_form_view"/>
+            <field name="act_window_id" ref="action_sommeil_rdv_tree"/>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_reclamation_tree">
+            <field name="name">Reclamation</field>
+            <field name="res_model">sommeil.reclamation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_sommeil_planning_tree2">
+            <field name="name">Mon Planning</field>
+            <field name="res_model">sommeil.planning2</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+        </record>
+
+
+        <record id="action_sommeil_planning_tree2_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_planning_rdv_tree2"/>
+            <field name="act_window_id" ref="action_sommeil_planning_tree2"/>
+        </record>
+
+        <record id="action_sommeil_planning_tree2_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sommeil_planning_form_view2"/>
+            <field name="act_window_id" ref="action_sommeil_planning_tree2"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="amh_relance_invoice_act">
+            <field name="name">Relances factures recurrentes</field>
+            <field name="res_model">amh.relance.invoice</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="avad_base.amh_relance_invoice_tree"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_motif_desapr">
+            <field name="name">Motifs Désappareillage</field>
+            <field name="res_model">motif.desapar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="avad_ssi_pivot_action_appar">
+            <field name="name">SSI appareillage</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="avad_base.search_project_ssi_project" />
+            <field name="view_id" ref="avad_base.pivot_project_ssi_appar" />
+            <field name="view_mode">pivot</field>
+            <!--field name="domain">[('demande','=','location'),('date_appar','!=',False)]</field-->
+            <field name="context">{'search_default_grp_appar_date_month':1}</field>
+        </record>
+        <record model="ir.actions.act_window" id="avad_ssi_pivot_action_desappar">
+            <field name="name">SSI des-appareillage</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+            <!--field name="search_view_id" ref="avad_base.search_project_ssi_project" /-->
+            <field name="view_id" ref="avad_base.pivot_project_ssi_desappar" />
+            <field name="view_mode">pivot</field>
+            <field name="domain">[('demande','=','location'),('date_desappar','!=',False)]</field>
+            <field name="context">{'search_default_grp_desappar_date_month':1}</field>
+        </record>
+
+        <menuitem name="Factures recurrentes"
+                  id="menu_rec_relances_fact_parent"
+                  parent="base.menu_custom"
+                  groups="group_avad_manager"
+                  sequence="1"/>
+        <menuitem name="Relances factures recurrentes"
+                  id="menu_rec_relances_fact"
+                  parent="menu_rec_relances_fact_parent"
+                  groups="group_avad_manager"
+                  action="amh_relance_invoice_act"
+                  sequence="1"/>
+
+
+        <menuitem name="Dossiers"
+                  id="tels_menu_root"
+                  web_icon="avad_base,static/description/avad.png"
+                  groups="group_avad_user"
+                  sequence="1"/>
+
+        <menuitem name="Acceuil"
+                  id="tels_acceuil"
+                  parent="tels_menu_root"
+                  sequence="1"
+        />
+        <menuitem name="Demandes" id="tels_acceuil_demandes"
+                  parent="tels_acceuil"
+                  sequence="1"
+        />
+        <menuitem name="Tous" id="tels_acceuil_demandes_tous"
+                  parent="tels_acceuil_demandes"
+                  action="open_view_project_all_avad"
+                  sequence="1"
+        />
+        <menuitem name="Demandes vente" id="tels_acceuil_demandes_ventes"
+                  parent="tels_acceuil_demandes"
+                  action="open_view_project_avad_ventes"
+                  sequence="2"
+        />
+        <menuitem name="Demandes location" id="tels_acceuil_demandes_location"
+                  parent="tels_acceuil_demandes"
+                  action="open_view_project_avad_location"
+                  sequence="3"
+        />
+        <menuitem name="Demandes par seance" id="tels_acceuil_demandes_seance"
+                  parent="tels_acceuil_demandes"
+                  action="open_view_project_avad_seance"
+                  sequence="4"
+        />
+
+        <menuitem name="Interventions" id="tels_acceuil_interventions"
+                  parent="tels_acceuil"
+                  action="act_project_project_2_project_task_interventions"
+                  sequence="2"
+        />
+
+        <menuitem name="Partenaires" id="tels_partners"
+                  parent="tels_menu_root"
+                  sequence="3"
+        />
+        <menuitem name="Tous" id="tels_partners_all"
+                  parent="tels_partners"
+                  action="avad_action_partners"
+                  sequence="1"
+        />
+
+        <menuitem name="Médecins" id="tels_partners_medcins"
+                  parent="tels_partners"
+                  action="avad_action_partners_medecin"
+                  sequence="2"
+        />
+        <menuitem name="Patients" id="tels_partners_patients"
+                  parent="tels_partners"
+                  action="avad_action_partners_patient"
+                  sequence="3"
+        />
+        <menuitem name="Institutions" id="avad_action_institution"
+                  parent="tels_partners"
+                  action="avad_action_partners_institution"
+                  sequence="4"
+        />
+        <menuitem name="Autres" id="avad_action_autre"
+                  parent="tels_partners"
+                  action="avad_action_partners_autre"
+                  sequence="5"
+        />
+         <menuitem name="Suivi d'activité" id="dossiers_suivi"
+                  parent="tels_menu_root"
+                  groups="group_avad_manager"
+                  sequence="4"
+        />
+        <menuitem name="SS Appareillage" id="suivi_ssi_appar"
+                  parent="dossiers_suivi"
+                  action="avad_ssi_pivot_action_appar"
+                  sequence="1"
+        />
+        <menuitem name="SS Des-appareillage" id="suivi_ssi_desappar"
+                  parent="dossiers_suivi"
+                  action="avad_ssi_pivot_action_desappar"
+                  sequence="1"
+        />
+
+        <menuitem name="Configuration"
+                  id="tels_configs"
+                  parent="tels_menu_root"
+                  sequence="5"
+        />
+
+        <menuitem name="Agences"
+                  id="tels_agences"
+                  parent="tels_configs"
+                  action="sales_team.sales_team_config_action"
+                  sequence="1"
+        />
+        <menuitem name="Spécialité Médecins"
+                  id="tels_specialite_medecin"
+                  parent="tels_configs"
+                  action="avad_action_partners_specialite"
+                  sequence="2"
+        />
+        <menuitem name="Forfaits"
+                  id="tels_forfaits"
+                  parent="tels_configs"
+                  action="avad_action_forfaits"
+                  sequence="3"
+        />
+        <menuitem name="Objets"
+                  id="tasks_objets_avad"
+                  parent="tels_configs"
+                  action="avad_objet_actions"
+                  sequence="4"/>
+
+        <menuitem name="Etapes"
+                  id="etapes_tasks_avad"
+                  parent="tels_configs"
+                  action="project.open_task_type_form"
+                  sequence="5"/>
+
+        <menuitem name="Motifs Désappareillage"
+                  id="menu_motif_desapr_avad"
+                  parent="tels_configs"
+                  action="action_motif_desapr"
+                  sequence="6"/>
+
+
+        <menuitem name="Sommeil"
+                  id="sommeil_menu_root"
+                  web_icon="avad_base,static/description/avad.png"
+                  sequence="1"/>
+
+
+        <menuitem name="Acceuil"
+                  id="tels_sommeil_acceuil"
+                  parent="sommeil_menu_root"
+                  sequence="1"
+        />
+
+        <menuitem name="Demandes Acceuil"
+                  id="tels_sommeil_demandes"
+                  parent="tels_sommeil_acceuil"
+                  action="calendar_sommeil_act"
+                  sequence="1"
+        />
+
+
+        <menuitem id="menu_action_sommeil_rdv_tree"
+                  name="Tous les RDV "
+                  parent="tels_sommeil_acceuil"
+                  sequence="3" action="action_sommeil_rdv_tree"/>
+
+
+        <menuitem id="menu_action_sommeil_rdv_tree2"
+                  name="Rendez vous validé "
+                  parent="tels_sommeil_acceuil"
+                  sequence="4" action="action_sommeil_rdv_tree2"/>
+
+
+        <menuitem id="menu_action_sommeil_rdv_tree2_agence"
+                  name="Rendez vous validé (Agence) "
+                  parent="tels_sommeil_acceuil"
+                  sequence="5" action="action_sommeil_rdv_tree2_agence"/>
+
+
+        <menuitem id="menu_action_sommeil_planning_tree2"
+                  name="Mon planing "
+                  parent="tels_sommeil_acceuil"
+                  sequence="6" action="action_sommeil_planning_tree2"/>
+
+
+        <menuitem id="menu_action_reclamation_tree"
+                  name="Réclamations"
+                  parent="tels_sommeil_acceuil"
+                  sequence="7" action="action_reclamation_tree"/>
+
+
+
+        <menuitem id="menu_action_sommeillivrable_tree"
+                  name="Livrable Sommeil"
+                  parent="tels_sommeil_acceuil"
+                  sequence="8" action="action_sommeillivrable_tree"/>
+
+
+        <!--menuitem action="action_confirm_view_rappel_rdv_sms"
+                  id="menu_action_confirm_view_rappel_rdv_sms"
+                  parent="sommeil_menu_root"/-->
+
+
+         <menuitem name="Configuration"
+                  id="tels_sommeil_config"
+                  parent="sommeil_menu_root"
+                  sequence="6"
+        />
+        <menuitem name="Type examen"
+                  id="type_examen_menu"
+                  parent="tels_sommeil_config"
+                  action="sommeil_type_examen_action"
+                  sequence="1"
+        />
+        <menuitem name="Piece jointes"
+                  id="sommeil_piece_jointe_menu"
+                  parent="tels_sommeil_config"
+                  action="sommeil_piece_jointe_action"
+                  sequence="2"
+        />
+        <menuitem name="Formes d'envoi"
+                  id="sommeil_forme_rapport_menu"
+                  parent="tels_sommeil_config"
+                  action="sommeil_forme_rapport_action"
+                  sequence="3"
+        />
+
+        <menuitem name="Cannaux"
+                  id="sommeil_canal_menu"
+                  parent="tels_sommeil_config"
+                  action="sommeil_pat_canal_action"
+                  sequence="4"
+        />
+
+
+<!-- Action servers -->
+    <record id="action_server_colors_invoices_contrat" model="ir.actions.server">
+    <field name="name">Colorer factures contrats</field>
+    <field name="model_id" ref="account.model_account_invoice"/>
+    <field name="code">
+        action = model.temp_calcul_jrs_relance_ruc()
+    </field>
+</record>
+
+
+    </data>
+</odoo>

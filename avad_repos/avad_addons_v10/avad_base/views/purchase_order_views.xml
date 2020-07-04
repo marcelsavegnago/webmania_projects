@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="purchase_order_form_project_eval">
+            <field name="name">purchase.order.form.amh.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath position="after" expr="//field[@name='order_line']/tree/field[@name='price_unit']">
+                    <field name="prix_revient"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

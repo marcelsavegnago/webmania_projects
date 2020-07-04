@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Create Report -->
+    <report
+        id="report_proforma"
+        string="Pro Forma Quotation"
+        model="sale.order"
+        report_type="qweb-pdf"
+        file="sale_proforma_order.report_proforma_document"
+        name="sale_proforma_order.report_proforma_document"
+    />
+
+    <!-- Set pro_forma to true -->
+    <template id="report_proforma_document">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang">
+                    <t t-set="pro_forma" t-value="True"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_saleorder_document_proforma" inherit_id="sale.report_saleorder_document">
+        <!-- Replace Sale Order Number by 'Pro Forma Invoice -->
+        <xpath expr="//div[contains(@class, 'page')]//h2[1]" position="replace">
+             <h2>
+                <t t-if="pro_forma">
+                    <span>PROFORMA N° </span>
+                    <span t-field="doc.name"/>
+                </t>
+                <t t-if="not pro_forma">
+                    <span t-if="doc.state not in ['draft','sent']">Bon de commande N° </span>
+                    <span t-if="doc.state in ['draft','sent']">Devis N° </span>
+                    <span t-field="doc.name"/>
+                </t>
+            </h2>
+        </xpath>
+
+        <!-- Replace 'Date Ordered' by 'Date' -->
+        <xpath expr="//p[@t-field='doc.date_order']/.." position="replace">
+            <t t-if="doc.date_order">
+                <div t-if="pro_forma" class="col-xs-3">
+                    <strong>Date:</strong>
+                    <p t-field="doc.date_order"/>
+                </div>
+                <div t-if="not pro_forma" class="col-xs-3">
+                    <strong t-if="doc.state not in ['draft','sent']">Date commande:</strong>
+                    <strong t-if="doc.state in ['draft','sent']">Date devis:</strong>
+                    <p t-field="doc.date_order"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
