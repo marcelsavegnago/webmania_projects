@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_transport_management,transport_vehicle manager,model_transport_vehicle,,1,1,1,0
-access_transport_management_status,transport_management_vehicle_status,model_transport_vehicle_status,,1,1,1,1
+access_transport_management_status,transport_management_vehicle_status manager,model_transport_vehicle_status,,1,1,1,1
+access_transport_management_status,transport_management_vehicle_status User,model_transport_vehicle_status,,1,0,0,1
